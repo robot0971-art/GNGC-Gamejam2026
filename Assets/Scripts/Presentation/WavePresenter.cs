@@ -8,8 +8,11 @@ namespace Gamejam2026.Presentation
     public class WavePresenter : MonoBehaviour
     {
         [SerializeField] private EntrantSlot[] slots;
+        [SerializeField] private float previewScaleMultiplier = 2.2f;
+        [SerializeField] private Vector3 previewPositionOffset = new Vector3(0f, -1.1f, 0f);
 
         private Vector3[] originalLocalPositions;
+        private Vector3[] originalLocalScales;
 
         public IReadOnlyList<EntrantSlot> Slots => slots;
 
@@ -31,6 +34,11 @@ namespace Gamejam2026.Presentation
             }
 
             CaptureOriginalPositions();
+        }
+
+        public Vector3 GetPreviewPosition(Vector3 center)
+        {
+            return center + previewPositionOffset;
         }
 
         public void FocusOnly(int index)
@@ -83,12 +91,13 @@ namespace Gamejam2026.Presentation
             HideAllEntrants();
 
             EntrantSlot slot = slots[index];
-            Vector3 targetPosition = center;
+            Vector3 targetPosition = GetPreviewPosition(center);
             targetPosition.z = slot.transform.position.z;
 
             slot.gameObject.SetActive(true);
             slot.transform.position = targetPosition;
             slot.SetFocused(true);
+            slot.transform.localScale *= Mathf.Max(0.01f, previewScaleMultiplier);
             SetSlotAlpha(slot, 0f);
 
             yield return FadeSlot(slot, 0f, 1f, fadeSeconds);
@@ -97,6 +106,7 @@ namespace Gamejam2026.Presentation
 
             slot.gameObject.SetActive(false);
             RestoreSlotPosition(index);
+            RestoreSlotScale(index);
         }
 
         public void ShowAllEntrants()
@@ -246,6 +256,103 @@ namespace Gamejam2026.Presentation
             return false;
         }
 
+        public bool TryGetFirstSelectableSlot(out EntrantSlot slot)
+        {
+            ResolveSlots();
+
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (IsSelectableEntrant(slots[i]))
+                {
+                    slot = slots[i];
+                    return true;
+                }
+            }
+
+            slot = null;
+            return false;
+        }
+
+        public bool TryGetNearestSelectableSlot(Vector3 fromPosition, out EntrantSlot slot)
+        {
+            ResolveSlots();
+
+            slot = null;
+            float bestDistance = float.MaxValue;
+
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (!IsSelectableEntrant(slots[i]))
+                {
+                    continue;
+                }
+
+                float distance = (slots[i].transform.position - fromPosition).sqrMagnitude;
+
+                if (distance < bestDistance)
+                {
+                    bestDistance = distance;
+                    slot = slots[i];
+                }
+            }
+
+            return slot != null;
+        }
+
+        public bool TryGetSelectableSlotByDirection(EntrantSlot currentSlot, int direction, out EntrantSlot slot)
+        {
+            ResolveSlots();
+
+            int selectableCount = 0;
+            int currentSelectableIndex = -1;
+
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (!IsSelectableEntrant(slots[i]))
+                {
+                    continue;
+                }
+
+                if (slots[i] == currentSlot)
+                {
+                    currentSelectableIndex = selectableCount;
+                }
+
+                selectableCount++;
+            }
+
+            if (selectableCount == 0)
+            {
+                slot = null;
+                return false;
+            }
+
+            int step = direction < 0 ? -1 : 1;
+            int targetSelectableIndex = currentSelectableIndex < 0
+                ? 0
+                : (currentSelectableIndex + step + selectableCount) % selectableCount;
+            int currentIndex = 0;
+
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (!IsSelectableEntrant(slots[i]))
+                {
+                    continue;
+                }
+
+                if (currentIndex == targetSelectableIndex)
+                {
+                    slot = slots[i];
+                    return true;
+                }
+
+                currentIndex++;
+            }
+
+            slot = null;
+            return false;
+        }
+
         private void ResolveSlots()
         {
             if (slots != null && slots.Length > 0)
@@ -262,13 +369,20 @@ namespace Gamejam2026.Presentation
             return slot != null && slot.Data != null && slot.gameObject.activeInHierarchy;
         }
 
+        private static bool IsSelectableEntrant(EntrantSlot slot)
+        {
+            return IsVisibleEntrant(slot) && !slot.IsShot;
+        }
+
         private void CaptureOriginalPositions()
         {
             originalLocalPositions = new Vector3[slots.Length];
+            originalLocalScales = new Vector3[slots.Length];
 
             for (int i = 0; i < slots.Length; i++)
             {
                 originalLocalPositions[i] = slots[i].transform.localPosition;
+                originalLocalScales[i] = slots[i].transform.localScale;
             }
         }
 
@@ -282,6 +396,7 @@ namespace Gamejam2026.Presentation
             for (int i = 0; i < slots.Length; i++)
             {
                 RestoreSlotPosition(i);
+                RestoreSlotScale(i);
             }
         }
 
@@ -293,6 +408,26 @@ namespace Gamejam2026.Presentation
             }
 
             slots[index].transform.localPosition = originalLocalPositions[index];
+        }
+
+        private Vector3 GetOriginalLocalScale(int index)
+        {
+            if (originalLocalScales == null || index < 0 || index >= originalLocalScales.Length)
+            {
+                return slots[index].transform.localScale;
+            }
+
+            return originalLocalScales[index];
+        }
+
+        private void RestoreSlotScale(int index)
+        {
+            if (originalLocalScales == null || index < 0 || index >= originalLocalScales.Length)
+            {
+                return;
+            }
+
+            slots[index].transform.localScale = originalLocalScales[index];
         }
 
         private static IEnumerator FadeSlot(EntrantSlot slot, float from, float to, float duration)

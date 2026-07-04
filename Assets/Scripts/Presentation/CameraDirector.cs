@@ -14,6 +14,10 @@ namespace Gamejam2026.Presentation
         [SerializeField] private SpriteRenderer cameraBoundsSource;
         [SerializeField] private bool clampInsideBounds = true;
 
+        private bool hasInitialView;
+        private Vector3 initialPosition;
+        private float initialSize;
+
         public IEnumerator PreviewSlots(
             IReadOnlyList<EntrantSlot> slots,
             float holdSeconds,
@@ -98,7 +102,7 @@ namespace Gamejam2026.Presentation
             return StartCoroutine(MoveCamera(GetFocusPosition(worldPosition), ClampSizeToBounds(focusSize), duration));
         }
 
-        public void SetFocusPoint(Vector3 worldPosition)
+        public void SetFocusPoint(Vector3 worldPosition, bool clampPosition = true)
         {
             ResolveCamera();
 
@@ -109,7 +113,10 @@ namespace Gamejam2026.Presentation
 
             float clampedFocusSize = ClampSizeToBounds(focusSize);
             targetCamera.orthographicSize = clampedFocusSize;
-            targetCamera.transform.position = ClampPositionToBounds(GetFocusPosition(worldPosition), clampedFocusSize);
+            Vector3 focusPosition = GetFocusPosition(worldPosition);
+            targetCamera.transform.position = clampPosition
+                ? ClampPositionToBounds(focusPosition, clampedFocusSize)
+                : focusPosition;
         }
 
         public bool TryGetCurrentView(out Vector3 position, out float size)
@@ -126,6 +133,19 @@ namespace Gamejam2026.Presentation
             position = targetCamera.transform.position;
             size = targetCamera.orthographicSize;
             return true;
+        }
+
+        public void ResetToInitialView()
+        {
+            ResolveCamera();
+
+            if (targetCamera == null || !hasInitialView)
+            {
+                return;
+            }
+
+            targetCamera.transform.position = initialPosition;
+            targetCamera.orthographicSize = initialSize;
         }
 
         public Coroutine MoveToView(Vector3 position, float size, float duration)
@@ -197,6 +217,13 @@ namespace Gamejam2026.Presentation
             if (targetCamera == null)
             {
                 targetCamera = Camera.main;
+            }
+
+            if (!hasInitialView && targetCamera != null)
+            {
+                initialPosition = targetCamera.transform.position;
+                initialSize = targetCamera.orthographicSize;
+                hasInitialView = true;
             }
 
             if (cameraBoundsSource == null)

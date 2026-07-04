@@ -140,20 +140,15 @@ namespace Gamejam2026.Gameplay
         {
             bool correct = IsAITarget(slot);
 
-            if (correct && !TryConsumeBullet())
+            if (!TryConsumeBullet())
             {
                 return;
-            }
-
-            if (!correct)
-            {
-                ShotFired?.Invoke(bullets);
             }
 
             slot.MarkShot();
             ShotResolved?.Invoke(slot, correct, bullets);
 
-            if (correct && bullets <= 0 && !unlimitedBulletsForTesting)
+            if (bullets <= 0 && !unlimitedBulletsForTesting)
             {
                 canShoot = false;
                 BulletsEmpty?.Invoke();

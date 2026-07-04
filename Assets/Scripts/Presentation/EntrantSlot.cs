@@ -29,8 +29,9 @@ namespace Gamejam2026.Presentation
         [SerializeField] private bool normalizeSpriteHeight = true;
         [SerializeField] private bool useFixedAiSlotsForTesting;
 
+        private static float sharedTargetWorldHeight;
+
         private Vector3 originalSlotScale;
-        private float targetWorldHeight;
         private Vector3 baseScale;
         private Vector3 basePosition;
         private Quaternion baseRotation;
@@ -39,6 +40,12 @@ namespace Gamejam2026.Presentation
         public EntrantData Data { get; private set; }
         public bool IsShot { get; private set; }
         public bool IsTargetAI => IsAITarget();
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetSharedTargetWorldHeight()
+        {
+            sharedTargetWorldHeight = 0f;
+        }
 
         private void Awake()
         {
@@ -57,7 +64,7 @@ namespace Gamejam2026.Presentation
                 hitCollider = GetComponent<Collider2D>();
             }
 
-            targetWorldHeight = GetCurrentSpriteWorldHeight();
+            sharedTargetWorldHeight = Mathf.Max(sharedTargetWorldHeight, GetCurrentSpriteWorldHeight());
         }
 
         public void Setup(EntrantData data)
@@ -83,6 +90,7 @@ namespace Gamejam2026.Presentation
             }
             else if (spriteRenderer != null)
             {
+                spriteRenderer.sprite = null;
                 spriteRenderer.enabled = true;
                 spriteRenderer.color = normalColor;
                 baseScale = originalSlotScale;
@@ -101,19 +109,16 @@ namespace Gamejam2026.Presentation
 
         private Vector3 CalculateNormalizedScale(Sprite sprite)
         {
-            if (!normalizeSpriteHeight || sprite == null || sprite.bounds.size.y <= 0f || targetWorldHeight <= 0f)
+            if (!normalizeSpriteHeight || sprite == null || sprite.bounds.size.y <= 0f || sharedTargetWorldHeight <= 0f)
             {
                 return originalSlotScale;
             }
 
-            float normalizedY = targetWorldHeight / sprite.bounds.size.y;
-            float ratio = Mathf.Abs(originalSlotScale.y) <= Mathf.Epsilon
-                ? 1f
-                : normalizedY / Mathf.Abs(originalSlotScale.y);
+            float uniformScale = sharedTargetWorldHeight / sprite.bounds.size.y;
 
             return new Vector3(
-                originalSlotScale.x * ratio,
-                Mathf.Sign(originalSlotScale.y) * normalizedY,
+                Mathf.Sign(originalSlotScale.x) * uniformScale,
+                Mathf.Sign(originalSlotScale.y) * uniformScale,
                 originalSlotScale.z);
         }
 

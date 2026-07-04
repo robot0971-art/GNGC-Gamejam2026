@@ -1,0 +1,2855 @@
+fileFormatVersion: 2
+guid: 687f7252dfeec4d469072dbf679e2ae0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3947563801781270653
+    second: ui_circle_0
+  - first:
+      213: -9133899069208765239
+    second: ui_circle_1
+  - first:
+      213: 3939728899071244585
+    second: ui_circle_2
+  - first:
+      213: 4655318979315017799
+    second: ui_circle_3
+  - first:
+      213: 6689742663531241993
+    second: ui_circle_4
+  - first:
+      213: 5476854999469688743
+    second: ui_circle_5
+  - first:
+      213: -8701736977575997464
+    second: ui_circle_6
+  - first:
+      213: 7184173328835323516
+    second: ui_circle_7
+  - first:
+      213: 1152167161100967416
+    second: ui_circle_8
+  - first:
+      213: 2911947597018211457
+    second: ui_circle_9
+  - first:
+      213: -2033077493574377551
+    second: ui_circle_10
+  - first:
+      213: 2011602997384904739
+    second: ui_circle_11
+  - first:
+      213: 17993557818752676
+    second: ui_circle_12
+  - first:
+      213: 7354726689126077663
+    second: ui_circle_13
+  - first:
+      213: -6148605702996748884
+    second: ui_circle_14
+  - first:
+      213: -6950373818418180373
+    second: ui_circle_15
+  - first:
+      213: 2832744222714267592
+    second: ui_circle_16
+  - first:
+      213: -4224535402135454879
+    second: ui_circle_17
+  - first:
+      213: -4853537311973470741
+    second: ui_circle_18
+  - first:
+      213: -8138690097112270625
+    second: ui_circle_19
+  - first:
+      213: -564361058469832199
+    second: ui_circle_20
+  - first:
+      213: 706287955764786496
+    second: ui_circle_21
+  - first:
+      213: -946423755517905447
+    second: ui_circle_22
+  - first:
+      213: -6940188355266857778
+    second: ui_circle_23
+  - first:
+      213: 3178764934832133483
+    second: ui_circle_24
+  - first:
+      213: -6088490160317787362
+    second: ui_circle_25
+  - first:
+      213: 2706882194083718145
+    second: ui_circle_26
+  - first:
+      213: 8806849344979232764
+    second: ui_circle_27
+  - first:
+      213: 6584119236257554373
+    second: ui_circle_28
+  - first:
+      213: -8647255217080025474
+    second: ui_circle_29
+  - first:
+      213: 5263548576747391897
+    second: ui_circle_30
+  - first:
+      213: -84827570077589776
+    second: ui_circle_31
+  - first:
+      213: 8764706860071191055
+    second: ui_circle_32
+  - first:
+      213: -5942138657539552713
+    second: ui_circle_33
+  - first:
+      213: 5190671918864932451
+    second: ui_circle_34
+  - first:
+      213: -509661793274904243
+    second: ui_circle_35
+  - first:
+      213: 7860414159568496735
+    second: ui_circle_36
+  - first:
+      213: -884849529715876864
+    second: ui_circle_37
+  - first:
+      213: 3285939059952767593
+    second: ui_circle_38
+  - first:
+      213: -6145305041099662836
+    second: ui_circle_39
+  - first:
+      213: 3082560912008644589
+    second: ui_circle_40
+  - first:
+      213: -7283733245188307306
+    second: ui_circle_41
+  - first:
+      213: 4513125422877048615
+    second: ui_circle_42
+  - first:
+      213: 3658212768145796874
+    second: ui_circle_43
+  - first:
+      213: -7213959874762356876
+    second: ui_circle_44
+  - first:
+      213: 1666847407342663365
+    second: ui_circle_45
+  - first:
+      213: -2808662083764909177
+    second: ui_circle_46
+  - first:
+      213: 2817886770887718647
+    second: ui_circle_47
+  - first:
+      213: 3944676044774471269
+    second: ui_circle_48
+  - first:
+      213: -5878625982984685290
+    second: ui_circle_49
+  - first:
+      213: 5851565268283046307
+    second: ui_circle_50
+  - first:
+      213: 4261648352026711690
+    second: ui_circle_51
+  - first:
+      213: 5428786889702926806
+    second: ui_circle_52
+  - first:
+      213: -7396587266342772607
+    second: ui_circle_53
+  - first:
+      213: -6768459552100100949
+    second: ui_circle_54
+  - first:
+      213: -6624073455544969065
+    second: ui_circle_55
+  - first:
+      213: -704743434612147359
+    second: ui_circle_56
+  - first:
+      213: 678491739338078925
+    second: ui_circle_57
+  - first:
+      213: 5219271461339406163
+    second: ui_circle_58
+  - first:
+      213: 8586548128497261608
+    second: ui_circle_59
+  - first:
+      213: -7913631162729181608
+    second: ui_circle_60
+  - first:
+      213: -5059023990390005237
+    second: ui_circle_61
+  - first:
+      213: -75493640252942914
+    second: ui_circle_62
+  - first:
+      213: -5372034841272790219
+    second: ui_circle_63
+  - first:
+      213: -3655920297844640543
+    second: ui_circle_64
+  - first:
+      213: -7142702981478002586
+    second: ui_circle_65
+  - first:
+      213: -3211977287560570808
+    second: ui_circle_66
+  - first:
+      213: -5181443637263706545
+    second: ui_circle_67
+  - first:
+      213: 4875903003519352422
+    second: ui_circle_68
+  - first:
+      213: -8252531477876050297
+    second: ui_circle_69
+  - first:
+      213: 8190381474936681380
+    second: ui_circle_70
+  - first:
+      213: -6638111249767490849
+    second: ui_circle_71
+  - first:
+      213: 9008542733422077998
+    second: ui_circle_72
+  - first:
+      213: -4380560904440534708
+    second: ui_circle_73
+  - first:
+      213: 8009024660671538296
+    second: ui_circle_74
+  - first:
+      213: -7747060525677091066
+    second: ui_circle_75
+  - first:
+      213: -795879296978721995
+    second: ui_circle_76
+  - first:
+      213: -1628961574580174201
+    second: ui_circle_77
+  - first:
+      213: -7925416581603622286
+    second: ui_circle_78
+  - first:
+      213: -3517437766239891438
+    second: ui_circle_79
+  - first:
+      213: -333046796753740951
+    second: ui_circle_80
+  - first:
+      213: -4292699785941122170
+    second: ui_circle_81
+  - first:
+      213: -4831968154348262836
+    second: ui_circle_82
+  - first:
+      213: -5482731514922480213
+    second: ui_circle_83
+  - first:
+      213: 198904979485690596
+    second: ui_circle_84
+  - first:
+      213: 6919819469785266580
+    second: ui_circle_85
+  - first:
+      213: 895248940436684676
+    second: ui_circle_86
+  - first:
+      213: 2160569756471543655
+    second: ui_circle_87
+  - first:
+      213: 1731112510955605085
+    second: ui_circle_88
+  - first:
+      213: -7317574872811278224
+    second: ui_circle_89
+  - first:
+      213: 1513645578308016390
+    second: ui_circle_90
+  - first:
+      213: 3136051802418181659
+    second: ui_circle_91
+  - first:
+      213: -6498956667686306202
+    second: ui_circle_92
+  - first:
+      213: -5854839093416190664
+    second: ui_circle_93
+  - first:
+      213: 1832718649478502842
+    second: ui_circle_94
+  - first:
+      213: -4939734145953482793
+    second: ui_circle_95
+  - first:
+      213: -8195844766849483374
+    second: ui_circle_96
+  - first:
+      213: -2284158517173970671
+    second: ui_circle_97
+  - first:
+      213: -1516963827004906824
+    second: ui_circle_98
+  - first:
+      213: -4603340417732423697
+    second: ui_circle_99
+  - first:
+      213: 895895204842459779
+    second: ui_circle_100
+  - first:
+      213: -1151678182393569427
+    second: ui_circle_101
+  - first:
+      213: -2863238941030342295
+    second: ui_circle_102
+  - first:
+      213: 4352708154433142117
+    second: ui_circle_103
+  - first:
+      213: 1979797940686025482
+    second: ui_circle_104
+  - first:
+      213: 7353315384992052181
+    second: ui_circle_105
+  - first:
+      213: 6051625696585948405
+    second: ui_circle_106
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ui_circle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1045
+        height: 1053
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38703aa23af6739c0800000000000000
+      internalID: -3947563801781270653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_2
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 1036
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9297b746f8abca630800000000000000
+      internalID: 3939728899071244585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_4
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 1029
+        width: 40
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9022e8a328db6dc50800000000000000
+      internalID: 6689742663531241993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_5
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 1025
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a786b9ba92b10c40800000000000000
+      internalID: 5476854999469688743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_6
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 681
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ef83ba92583d3780800000000000000
+      internalID: -8701736977575997464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_7
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 688
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c76a016449f43b360800000000000000
+      internalID: 7184173328835323516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_8
+      rect:
+        serializedVersion: 2
+        x: 1005
+        y: 684
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fd1b47bde15dff00800000000000000
+      internalID: 1152167161100967416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_9
+      rect:
+        serializedVersion: 2
+        x: 1007
+        y: 678
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 184a2dc49e0596820800000000000000
+      internalID: 2911947597018211457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_10
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 667
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bf58a29ace09c3e0800000000000000
+      internalID: -2033077493574377551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_11
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 674
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3200d38a446aaeb10800000000000000
+      internalID: 2011602997384904739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_12
+      rect:
+        serializedVersion: 2
+        x: 1009
+        y: 671
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ae3806ab0def3000800000000000000
+      internalID: 17993557818752676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_13
+      rect:
+        serializedVersion: 2
+        x: 1011
+        y: 664
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd4d17de4fc311660800000000000000
+      internalID: 7354726689126077663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_14
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 652
+        width: 18
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca510f890b3cbaaa0800000000000000
+      internalID: -6148605702996748884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_15
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 660
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bee420936df4b8f90800000000000000
+      internalID: -6950373818418180373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_16
+      rect:
+        serializedVersion: 2
+        x: 1013
+        y: 657
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c78c6eacddef4720800000000000000
+      internalID: 2832744222714267592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_17
+      rect:
+        serializedVersion: 2
+        x: 1015
+        y: 651
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16b77ae2f6f6f55c0800000000000000
+      internalID: -4224535402135454879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_18
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 638
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bed87b7a785c4acb0800000000000000
+      internalID: -4853537311973470741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_19
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 645
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd832a03a709d0f80800000000000000
+      internalID: -8138690097112270625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_20
+      rect:
+        serializedVersion: 2
+        x: 1016
+        y: 644
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f997d08b9cfa28f0800000000000000
+      internalID: -564361058469832199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_21
+      rect:
+        serializedVersion: 2
+        x: 1018
+        y: 637
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0453f78572d3dc900800000000000000
+      internalID: 706287955764786496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_22
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 623
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d53d55db90add2f0800000000000000
+      internalID: -946423755517905447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_23
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 630
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec4340a267f7faf90800000000000000
+      internalID: -6940188355266857778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_24
+      rect:
+        serializedVersion: 2
+        x: 1019
+        y: 629
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b65132dcddd3d1c20800000000000000
+      internalID: 3178764934832133483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_25
+      rect:
+        serializedVersion: 2
+        x: 1021
+        y: 623
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e131cc71576518ba0800000000000000
+      internalID: -6088490160317787362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_26
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 609
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 104a03b8307c09520800000000000000
+      internalID: 2706882194083718145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_27
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 616
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf76edd81d6383a70800000000000000
+      internalID: 8806849344979232764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_28
+      rect:
+        serializedVersion: 2
+        x: 1022
+        y: 615
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cf92fbaf8d7f5b50800000000000000
+      internalID: 6584119236257554373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_29
+      rect:
+        serializedVersion: 2
+        x: 1023
+        y: 608
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7e3dc7f137cef780800000000000000
+      internalID: -8647255217080025474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_30
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 595
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99b8a070b81eb0940800000000000000
+      internalID: 5263548576747391897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_31
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 602
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fe9d5246c1a2def0800000000000000
+      internalID: -84827570077589776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_32
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 601
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0209faa37e72a970800000000000000
+      internalID: 8764706860071191055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_33
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 594
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73a0d3faf58498da0800000000000000
+      internalID: -5942138657539552713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_34
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 580
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36e1a8ddb98f80840800000000000000
+      internalID: 5190671918864932451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_35
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 588
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d41c240ac415de8f0800000000000000
+      internalID: -509661793274904243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_36
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 587
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f58e788280dc51d60800000000000000
+      internalID: 7860414159568496735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_37
+      rect:
+        serializedVersion: 2
+        x: 1027
+        y: 579
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00c1d957a0268b3f0800000000000000
+      internalID: -884849529715876864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_38
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 573
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 962d0165a200a9d20800000000000000
+      internalID: 3285939059952767593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_39
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 565
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0a56d4df9d77baa0800000000000000
+      internalID: -6145305041099662836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_40
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 572
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de787ce31d477ca20800000000000000
+      internalID: 3082560912008644589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_41
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 565
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69609d1543bfaea90800000000000000
+      internalID: -7283733245188307306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_42
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 550
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72ffe5919a7d1ae30800000000000000
+      internalID: 4513125422877048615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_43
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 558
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0fe02e612594c230800000000000000
+      internalID: 3658212768145796874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_44
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 558
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4774ed017bdd2eb90800000000000000
+      internalID: -7213959874762356876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_45
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 550
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c6b079b2e4d12710800000000000000
+      internalID: 1666847407342663365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_46
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 542
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78b851b37b0a509d0800000000000000
+      internalID: -2808662083764909177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_47
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 535
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f6f80c96152b1720800000000000000
+      internalID: 2817886770887718647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_48
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 542
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56676c286fd4eb630800000000000000
+      internalID: 3944676044774471269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_49
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 535
+        width: 15
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 619f0d490dcea6ea0800000000000000
+      internalID: -5878625982984685290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_50
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 527
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a9360ccb9fe43150800000000000000
+      internalID: 5851565268283046307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_51
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 519
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a865e24d89a642b30800000000000000
+      internalID: 4261648352026711690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_52
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 526
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d96a0ac9ece65b40800000000000000
+      internalID: 5428786889702926806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_53
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 519
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 180267fe11b0a5990800000000000000
+      internalID: -7396587266342772607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_54
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 511
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba45970f5e99112a0800000000000000
+      internalID: -6768459552100100949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_55
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 504
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 798d52cb9409214a0800000000000000
+      internalID: -6624073455544969065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_56
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 511
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16b7722849f3836f0800000000000000
+      internalID: -704743434612147359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_57
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 503
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dca784264ac7a6900800000000000000
+      internalID: 678491739338078925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_58
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 497
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35f187fbdb39e6840800000000000000
+      internalID: 5219271461339406163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_59
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 489
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82cdfd5870c892770800000000000000
+      internalID: 8586548128497261608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_60
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 496
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85ec01eb2622d2290800000000000000
+      internalID: -7913631162729181608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_61
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 488
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b02ef9e0c7cbac9b0800000000000000
+      internalID: -5059023990390005237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_62
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 474
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb51ce52feac3fef0800000000000000
+      internalID: -75493640252942914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_63
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 482
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 533d9ec26c2b275b0800000000000000
+      internalID: -5372034841272790219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_64
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 481
+        width: 17
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e474d7ebdf834dc0800000000000000
+      internalID: -3655920297844640543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_65
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 473
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66051e46b7500ec90800000000000000
+      internalID: -7142702981478002586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_66
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 467
+        width: 17
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 848545cbca3cc63d0800000000000000
+      internalID: -3211977287560570808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_67
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 459
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f465031e670d718b0800000000000000
+      internalID: -5181443637263706545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_68
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 458
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66ef704b2ffaaa340800000000000000
+      internalID: 4875903003519352422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_69
+      rect:
+        serializedVersion: 2
+        x: 1027
+        y: 466
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 786f77b385e197d80800000000000000
+      internalID: -8252531477876050297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_70
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 451
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a37a849e841aa170800000000000000
+      internalID: 8190381474936681380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_71
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 444
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fda95121df0b0e3a0800000000000000
+      internalID: -6638111249767490849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_72
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 443
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e28ac8103e5c40d70800000000000000
+      internalID: 9008542733422077998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_73
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 451
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c49abdd011f1533c0800000000000000
+      internalID: -4380560904440534708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_74
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 437
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 874aba8ce75c52f60800000000000000
+      internalID: 8009024660671538296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_75
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 429
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 607e0916f79ec7490800000000000000
+      internalID: -7747060525677091066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_76
+      rect:
+        serializedVersion: 2
+        x: 1021
+        y: 429
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 533ee730ff774f4f0800000000000000
+      internalID: -795879296978721995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_77
+      rect:
+        serializedVersion: 2
+        x: 1023
+        y: 436
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 782436a1414c469e0800000000000000
+      internalID: -1628961574580174201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_78
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 422
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27286841c93430290800000000000000
+      internalID: -7925416581603622286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_79
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 415
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2105abfdcfc8f2fc0800000000000000
+      internalID: -3517437766239891438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_80
+      rect:
+        serializedVersion: 2
+        x: 1018
+        y: 414
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96b59e1f3b7c06bf0800000000000000
+      internalID: -333046796753740951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_81
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 421
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6838593d9444d64c0800000000000000
+      internalID: -4292699785941122170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_82
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 407
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4a6212809661fcb0800000000000000
+      internalID: -4831968154348262836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_83
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 400
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: badc4366cbc69e3b0800000000000000
+      internalID: -5482731514922480213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_84
+      rect:
+        serializedVersion: 2
+        x: 1015
+        y: 399
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ea0d466607a2c200800000000000000
+      internalID: 198904979485690596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_85
+      rect:
+        serializedVersion: 2
+        x: 1017
+        y: 406
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 499f16e1523280060800000000000000
+      internalID: 6919819469785266580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_86
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 386
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48ff5480b209c6c00800000000000000
+      internalID: 895248940436684676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_87
+      rect:
+        serializedVersion: 2
+        x: 1012
+        y: 385
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76740fe0fb2ebfd10800000000000000
+      internalID: 2160569756471543655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_88
+      rect:
+        serializedVersion: 2
+        x: 1013
+        y: 392
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5c4eb928a5260810800000000000000
+      internalID: 1731112510955605085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_89
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 379
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07072c06c60c27a90800000000000000
+      internalID: -7317574872811278224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_90
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 371
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 609d3e242ac810510800000000000000
+      internalID: 1513645578308016390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_91
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 371
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b16fb50bf7e758b20800000000000000
+      internalID: 3136051802418181659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_92
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 378
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66eb6ebf7511fc5a0800000000000000
+      internalID: -6498956667686306202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_93
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 357
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83d9bd36dde6fbea0800000000000000
+      internalID: -5854839093416190664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_94
+      rect:
+        serializedVersion: 2
+        x: 1004
+        y: 357
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab9566bc6ef1f6910800000000000000
+      internalID: 1832718649478502842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_95
+      rect:
+        serializedVersion: 2
+        x: 1006
+        y: 364
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d7339157f9827bb0800000000000000
+      internalID: -4939734145953482793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_96
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 14
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29d31b5ab92824e80800000000000000
+      internalID: -8195844766849483374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_97
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 12
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 119992d3ee90d40e0800000000000000
+      internalID: -2284158517173970671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_98
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 7
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b26142cf69a2fae0800000000000000
+      internalID: -1516963827004906824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_99
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 2
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fef4cd49746ad10c0800000000000000
+      internalID: -4603340417732423697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_100
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 0
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3825c9031fbde6c00800000000000000
+      internalID: 895895204842459779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_101
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 0
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6f1dd28bca6400f0800000000000000
+      internalID: -1151678182393569427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_102
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 2
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96122dc6a5bb348d0800000000000000
+      internalID: -2863238941030342295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_103
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 7
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56dfeeb310de76c30800000000000000
+      internalID: 4352708154433142117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_104
+      rect:
+        serializedVersion: 2
+        x: 677
+        y: 11
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a03f3a5dcb7a97b10800000000000000
+      internalID: 1979797940686025482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_105
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 16
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d3bdd312693c0660800000000000000
+      internalID: 7353315384992052181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_circle_106
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 0
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fc91a61281bbf350800000000000000
+      internalID: 6051625696585948405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 09ed1401ecaf0ba46907227c23de79d1
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ui_circle_0: -3947563801781270653
+      ui_circle_1: -9133899069208765239
+      ui_circle_10: -2033077493574377551
+      ui_circle_100: 895895204842459779
+      ui_circle_101: -1151678182393569427
+      ui_circle_102: -2863238941030342295
+      ui_circle_103: 4352708154433142117
+      ui_circle_104: 1979797940686025482
+      ui_circle_105: 7353315384992052181
+      ui_circle_106: 6051625696585948405
+      ui_circle_11: 2011602997384904739
+      ui_circle_12: 17993557818752676
+      ui_circle_13: 7354726689126077663
+      ui_circle_14: -6148605702996748884
+      ui_circle_15: -6950373818418180373
+      ui_circle_16: 2832744222714267592
+      ui_circle_17: -4224535402135454879
+      ui_circle_18: -4853537311973470741
+      ui_circle_19: -8138690097112270625
+      ui_circle_2: 3939728899071244585
+      ui_circle_20: -564361058469832199
+      ui_circle_21: 706287955764786496
+      ui_circle_22: -946423755517905447
+      ui_circle_23: -6940188355266857778
+      ui_circle_24: 3178764934832133483
+      ui_circle_25: -6088490160317787362
+      ui_circle_26: 2706882194083718145
+      ui_circle_27: 8806849344979232764
+      ui_circle_28: 6584119236257554373
+      ui_circle_29: -8647255217080025474
+      ui_circle_3: 4655318979315017799
+      ui_circle_30: 5263548576747391897
+      ui_circle_31: -84827570077589776
+      ui_circle_32: 8764706860071191055
+      ui_circle_33: -5942138657539552713
+      ui_circle_34: 5190671918864932451
+      ui_circle_35: -509661793274904243
+      ui_circle_36: 7860414159568496735
+      ui_circle_37: -884849529715876864
+      ui_circle_38: 3285939059952767593
+      ui_circle_39: -6145305041099662836
+      ui_circle_4: 6689742663531241993
+      ui_circle_40: 3082560912008644589
+      ui_circle_41: -7283733245188307306
+      ui_circle_42: 4513125422877048615
+      ui_circle_43: 3658212768145796874
+      ui_circle_44: -7213959874762356876
+      ui_circle_45: 1666847407342663365
+      ui_circle_46: -2808662083764909177
+      ui_circle_47: 2817886770887718647
+      ui_circle_48: 3944676044774471269
+      ui_circle_49: -5878625982984685290
+      ui_circle_5: 5476854999469688743
+      ui_circle_50: 5851565268283046307
+      ui_circle_51: 4261648352026711690
+      ui_circle_52: 5428786889702926806
+      ui_circle_53: -7396587266342772607
+      ui_circle_54: -6768459552100100949
+      ui_circle_55: -6624073455544969065
+      ui_circle_56: -704743434612147359
+      ui_circle_57: 678491739338078925
+      ui_circle_58: 5219271461339406163
+      ui_circle_59: 8586548128497261608
+      ui_circle_6: -8701736977575997464
+      ui_circle_60: -7913631162729181608
+      ui_circle_61: -5059023990390005237
+      ui_circle_62: -75493640252942914
+      ui_circle_63: -5372034841272790219
+      ui_circle_64: -3655920297844640543
+      ui_circle_65: -7142702981478002586
+      ui_circle_66: -3211977287560570808
+      ui_circle_67: -5181443637263706545
+      ui_circle_68: 4875903003519352422
+      ui_circle_69: -8252531477876050297
+      ui_circle_7: 7184173328835323516
+      ui_circle_70: 8190381474936681380
+      ui_circle_71: -6638111249767490849
+      ui_circle_72: 9008542733422077998
+      ui_circle_73: -4380560904440534708
+      ui_circle_74: 8009024660671538296
+      ui_circle_75: -7747060525677091066
+      ui_circle_76: -795879296978721995
+      ui_circle_77: -1628961574580174201
+      ui_circle_78: -7925416581603622286
+      ui_circle_79: -3517437766239891438
+      ui_circle_8: 1152167161100967416
+      ui_circle_80: -333046796753740951
+      ui_circle_81: -4292699785941122170
+      ui_circle_82: -4831968154348262836
+      ui_circle_83: -5482731514922480213
+      ui_circle_84: 198904979485690596
+      ui_circle_85: 6919819469785266580
+      ui_circle_86: 895248940436684676
+      ui_circle_87: 2160569756471543655
+      ui_circle_88: 1731112510955605085
+      ui_circle_89: -7317574872811278224
+      ui_circle_9: 2911947597018211457
+      ui_circle_90: 1513645578308016390
+      ui_circle_91: 3136051802418181659
+      ui_circle_92: -6498956667686306202
+      ui_circle_93: -5854839093416190664
+      ui_circle_94: 1832718649478502842
+      ui_circle_95: -4939734145953482793
+      ui_circle_96: -8195844766849483374
+      ui_circle_97: -2284158517173970671
+      ui_circle_98: -1516963827004906824
+      ui_circle_99: -4603340417732423697
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

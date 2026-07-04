@@ -27,7 +27,8 @@ namespace Gamejam2026.DebugTools
         [SerializeField] private float cutsceneBlackHoldSeconds = 0.15f;
         [SerializeField] private float sniperSceneSeconds = 2.5f;
         [SerializeField] private bool followMouseWhileZoomed = true;
-        [SerializeField] private bool movePlayerSniperWithMouse = true;
+        [SerializeField] private bool selectTargetWithADKeys = true;
+        [SerializeField] private bool movePlayerSniperWithMouse;
         [SerializeField] private float playerSniperFollowSpeed = 18f;
         [SerializeField] private Vector3 sniperSlotAimOffset = new Vector3(0f, 0.4f, 0f);
         [SerializeField] private bool disableRightClickToggle = true;
@@ -39,6 +40,10 @@ namespace Gamejam2026.DebugTools
         private Vector3 savedPosition;
         private float savedSize;
         private Vector3 playerSniperBasePosition;
+        private Vector3 initialPlayerSniperPosition;
+        private Vector3 initialSniperMaskPosition;
+        private bool hasInitialPlayerSniperPosition;
+        private bool hasInitialSniperMaskPosition;
         private bool hasPlayedSniperScene;
         private Coroutine transitionRoutine;
         private EntrantSlot currentSniperTarget;
@@ -46,6 +51,7 @@ namespace Gamejam2026.DebugTools
         private void Awake()
         {
             ResolveMissingReferences();
+            CacheInitialSniperVisualPositions();
             SetSniperMaskVisible(true);
         }
 
@@ -58,7 +64,7 @@ namespace Gamejam2026.DebugTools
 
             if (isZoomed && followMouseWhileZoomed)
             {
-                FollowMouseInZoomMode();
+                FollowTargetInZoomMode();
             }
         }
 
@@ -102,16 +108,68 @@ namespace Gamejam2026.DebugTools
 
         public void ActivatePersistentZoomVisuals()
         {
+            ActivatePersistentZoomVisualsAt((Vector3?)null);
+        }
+
+        public void ActivatePersistentZoomVisualsAt(Vector3 previewTargetPoint)
+        {
+            ActivatePersistentZoomVisualsAt((Vector3?)previewTargetPoint);
+        }
+
+        public void ActivatePersistentZoomVisualsAt(EntrantSlot targetSlot)
+        {
+            ActivatePersistentZoomVisualsAt(targetSlot, true);
+        }
+
+        private void ActivatePersistentZoomVisualsAt(EntrantSlot targetSlot, bool snapToTarget)
+        {
             persistentZoom = true;
             isZoomed = true;
             isTransitioning = false;
             ResolveMissingReferences();
             SetZoomVisuals(true);
             SetShootingAimPoint(true);
-            SetShootingTargetOverride(true);
             SetSniperMaskVisible(true);
             CachePlayerSniperBasePosition();
-            RefreshSniperTargetFromCurrentMouse();
+
+            if (targetSlot != null && !targetSlot.IsShot)
+            {
+                SetCurrentSniperTarget(targetSlot);
+                cameraDirector?.SetFocusPoint(followTarget, false);
+                MovePlayerSniperToWorldPoint(followTarget, snapToTarget);
+            }
+            else
+            {
+                RefreshSniperTargetFromCurrentAim(true);
+            }
+
+            SetShootingTargetOverride(true);
+        }
+
+        private void ActivatePersistentZoomVisualsAt(Vector3? initialTargetPoint)
+        {
+            persistentZoom = true;
+            isZoomed = true;
+            isTransitioning = false;
+            ResolveMissingReferences();
+            SetZoomVisuals(true);
+            SetShootingAimPoint(true);
+            SetSniperMaskVisible(true);
+            CachePlayerSniperBasePosition();
+
+            if (initialTargetPoint.HasValue)
+            {
+                currentSniperTarget = null;
+                followTarget = GetSniperTargetPoint(initialTargetPoint.Value);
+                cameraDirector?.SetFocusPoint(followTarget, false);
+                MovePlayerSniperToWorldPoint(followTarget, true);
+            }
+            else
+            {
+                RefreshSniperTargetFromCurrentAim(true);
+            }
+
+            SetShootingTargetOverride(true);
         }
 
         public void ShowPersistentZoomVisualsOnly()
@@ -124,6 +182,24 @@ namespace Gamejam2026.DebugTools
             SetShootingAimPoint(false);
             SetShootingTargetOverride(false);
             SetSniperMaskVisible(true);
+            CachePlayerSniperBasePosition();
+        }
+
+        public void ResetSniperVisualsToInitialPosition()
+        {
+            ResolveMissingReferences();
+            CacheInitialSniperVisualPositions();
+
+            if (hasInitialPlayerSniperPosition && playerSniperObject != null)
+            {
+                playerSniperObject.transform.position = initialPlayerSniperPosition;
+            }
+
+            if (hasInitialSniperMaskPosition && sniperMaskObject != null)
+            {
+                sniperMaskObject.transform.position = initialSniperMaskPosition;
+            }
+
             CachePlayerSniperBasePosition();
         }
 
@@ -243,21 +319,138 @@ namespace Gamejam2026.DebugTools
             SetShootingTargetOverride(true);
             SetSniperMaskVisible(true);
             CachePlayerSniperBasePosition();
-            RefreshSniperTargetFromCurrentMouse();
-            cameraDirector.FocusPoint(focusPosition, zoomSeconds);
+            RefreshSniperTargetFromCurrentAim(true);
+            ApplyCurrentSniperTargetView(false);
             isTransitioning = false;
             transitionRoutine = null;
         }
 
-        private void FollowMouseInZoomMode()
+        private void FollowTargetInZoomMode()
         {
-            if (!RefreshSniperTargetFromCurrentMouse() || cameraDirector == null)
+            if (!RefreshSniperTarget() || cameraDirector == null)
             {
                 return;
             }
 
-            cameraDirector.SetFocusPoint(followTarget);
-            MovePlayerSniperToWorldPoint(followTarget);
+            cameraDirector.SetFocusPoint(followTarget, false);
+            MovePlayerSniperToWorldPoint(followTarget, false);
+            SetShootingTargetOverride(true);
+        }
+
+        private bool RefreshSniperTarget()
+        {
+            return selectTargetWithADKeys
+                ? RefreshSniperTargetFromKeyboard()
+                : RefreshSniperTargetFromCurrentMouse();
+        }
+
+        private bool RefreshSniperTargetFromKeyboard()
+        {
+            int direction = GetKeyboardTargetDirection();
+
+            if (direction != 0 && TryGetSniperTargetByDirection(direction, out EntrantSlot directionalTarget))
+            {
+                SetCurrentSniperTarget(directionalTarget);
+                return true;
+            }
+
+            if (currentSniperTarget == null)
+            {
+                return true;
+            }
+
+            if (currentSniperTarget.IsShot || !currentSniperTarget.gameObject.activeInHierarchy)
+            {
+                Vector3 previousTargetPosition = currentSniperTarget.transform.position;
+
+                if (TryGetNearestSniperTarget(previousTargetPosition, out EntrantSlot nearestTarget))
+                {
+                    SetCurrentSniperTarget(nearestTarget);
+                }
+                else
+                {
+                    currentSniperTarget = null;
+                    shootingController?.ClearOverrideTarget();
+                    return false;
+                }
+            }
+            else
+            {
+                followTarget = GetSniperTargetPoint(currentSniperTarget);
+            }
+
+            return currentSniperTarget != null;
+        }
+
+        public void SelectNearestTargetFrom(Vector3 fromPosition)
+        {
+            if (TryGetNearestSniperTarget(fromPosition, out EntrantSlot nearestTarget))
+            {
+                SetCurrentSniperTarget(nearestTarget);
+                SetShootingTargetOverride(true);
+            }
+            else
+            {
+                currentSniperTarget = null;
+                shootingController?.ClearOverrideTarget();
+            }
+        }
+
+        private bool RefreshSniperTargetFromCurrentAim(bool allowFallback)
+        {
+            EntrantSlot targetSlot = null;
+
+            if (sniperAimPoint != null)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(sniperAimPoint.position, Vector2.zero);
+
+                if (hit.collider != null)
+                {
+                    targetSlot = hit.collider.GetComponentInParent<EntrantSlot>();
+                }
+            }
+
+            if ((targetSlot == null || targetSlot.IsShot) && aimPoint != null)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(aimPoint.position, Vector2.zero);
+
+                if (hit.collider != null)
+                {
+                    targetSlot = hit.collider.GetComponentInParent<EntrantSlot>();
+                }
+            }
+
+            if (targetSlot != null && !targetSlot.IsShot)
+            {
+                SetCurrentSniperTarget(targetSlot);
+                return true;
+            }
+
+            if (allowFallback && TryGetFirstSniperTarget(out EntrantSlot firstTarget))
+            {
+                SetCurrentSniperTarget(firstTarget);
+                return true;
+            }
+
+            return false;
+        }
+
+        private void ApplyCurrentSniperTargetView(bool instant)
+        {
+            if (currentSniperTarget == null || cameraDirector == null)
+            {
+                return;
+            }
+
+            if (instant)
+            {
+                cameraDirector.SetFocusPoint(followTarget);
+            }
+            else
+            {
+                cameraDirector.FocusPoint(followTarget, zoomSeconds);
+            }
+
             SetShootingTargetOverride(true);
         }
 
@@ -270,15 +463,32 @@ namespace Gamejam2026.DebugTools
 
             if (TryGetSniperTarget(screenPosition, out EntrantSlot targetSlot))
             {
-                currentSniperTarget = targetSlot;
-                followTarget = targetSlot.transform.position + sniperSlotAimOffset;
+                SetCurrentSniperTarget(targetSlot);
             }
             else if (currentSniperTarget != null)
             {
-                followTarget = currentSniperTarget.transform.position + sniperSlotAimOffset;
+                followTarget = GetSniperTargetPoint(currentSniperTarget);
             }
 
             return currentSniperTarget != null;
+        }
+
+        private void SetCurrentSniperTarget(EntrantSlot targetSlot)
+        {
+            currentSniperTarget = targetSlot;
+            followTarget = GetSniperTargetPoint(targetSlot);
+        }
+
+        private Vector3 GetSniperTargetPoint(EntrantSlot targetSlot)
+        {
+            return targetSlot != null
+                ? GetSniperTargetPoint(targetSlot.transform.position)
+                : followTarget;
+        }
+
+        private Vector3 GetSniperTargetPoint(Vector3 basePoint)
+        {
+            return basePoint + sniperSlotAimOffset;
         }
 
         private void ResolveMissingReferences()
@@ -371,7 +581,7 @@ namespace Gamejam2026.DebugTools
                 playerSniperObject.SetActive(zoomed);
             }
 
-            SetSniperMaskVisible(true);
+            SetSniperMaskVisible(zoomed);
         }
 
         private bool IsSniperVisualActive()
@@ -423,6 +633,21 @@ namespace Gamejam2026.DebugTools
             }
         }
 
+        private void CacheInitialSniperVisualPositions()
+        {
+            if (!hasInitialPlayerSniperPosition && playerSniperObject != null)
+            {
+                initialPlayerSniperPosition = playerSniperObject.transform.position;
+                hasInitialPlayerSniperPosition = true;
+            }
+
+            if (!hasInitialSniperMaskPosition && sniperMaskObject != null)
+            {
+                initialSniperMaskPosition = sniperMaskObject.transform.position;
+                hasInitialSniperMaskPosition = true;
+            }
+        }
+
         private bool TryGetSniperTarget(Vector2 screenPosition, out EntrantSlot targetSlot)
         {
             ResolveMissingReferences();
@@ -437,9 +662,50 @@ namespace Gamejam2026.DebugTools
             return wavePresenter.TryGetVisibleSlotByHorizontalRatio(ratio, out targetSlot);
         }
 
-        private void MovePlayerSniperToWorldPoint(Vector3 worldPoint)
+        private bool TryGetFirstSniperTarget(out EntrantSlot targetSlot)
         {
-            if (!movePlayerSniperWithMouse || playerSniperObject == null || sniperAimPoint == null)
+            ResolveMissingReferences();
+
+            if (wavePresenter == null)
+            {
+                targetSlot = null;
+                return false;
+            }
+
+            return wavePresenter.TryGetFirstSelectableSlot(out targetSlot);
+        }
+
+        private bool TryGetNearestSniperTarget(Vector3 fromPosition, out EntrantSlot targetSlot)
+        {
+            ResolveMissingReferences();
+
+            if (wavePresenter == null)
+            {
+                targetSlot = null;
+                return false;
+            }
+
+            return wavePresenter.TryGetNearestSelectableSlot(fromPosition, out targetSlot);
+        }
+
+        private bool TryGetSniperTargetByDirection(int direction, out EntrantSlot targetSlot)
+        {
+            ResolveMissingReferences();
+
+            if (wavePresenter == null)
+            {
+                targetSlot = null;
+                return false;
+            }
+
+            return wavePresenter.TryGetSelectableSlotByDirection(currentSniperTarget, direction, out targetSlot);
+        }
+
+        private void MovePlayerSniperToWorldPoint(Vector3 worldPoint, bool instant)
+        {
+            bool shouldMoveSniper = selectTargetWithADKeys || movePlayerSniperWithMouse;
+
+            if (!shouldMoveSniper || playerSniperObject == null || sniperAimPoint == null)
             {
                 return;
             }
@@ -450,11 +716,21 @@ namespace Gamejam2026.DebugTools
             Vector3 aimOffset = sniperAimPoint.position - playerSniperObject.transform.position;
             Vector3 targetPosition = targetWorldPoint - aimOffset;
             targetPosition.z = playerSniperBasePosition.z;
+            Vector3 previousSniperPosition = playerSniperObject.transform.position;
 
-            playerSniperObject.transform.position = Vector3.Lerp(
-                playerSniperObject.transform.position,
-                targetPosition,
-                1f - Mathf.Exp(-playerSniperFollowSpeed * Time.deltaTime));
+            playerSniperObject.transform.position = instant
+                ? targetPosition
+                : Vector3.Lerp(
+                    playerSniperObject.transform.position,
+                    targetPosition,
+                    1f - Mathf.Exp(-playerSniperFollowSpeed * Time.deltaTime));
+
+            if (selectTargetWithADKeys && sniperMaskObject != null)
+            {
+                Vector3 sniperDelta = playerSniperObject.transform.position - previousSniperPosition;
+                sniperDelta.z = 0f;
+                sniperMaskObject.transform.position += sniperDelta;
+            }
         }
 
         private CanvasGroup GetOrAddCanvasGroup(GameObject target)
@@ -747,6 +1023,48 @@ namespace Gamejam2026.DebugTools
             return Input.GetMouseButtonDown(1);
 #else
             return false;
+#endif
+        }
+
+        private static int GetKeyboardTargetDirection()
+        {
+#if ENABLE_INPUT_SYSTEM
+            if (Keyboard.current == null)
+            {
+                return 0;
+            }
+
+            if (Keyboard.current.aKey.wasPressedThisFrame
+                || Keyboard.current.wKey.wasPressedThisFrame
+                || Keyboard.current.leftArrowKey.wasPressedThisFrame)
+            {
+                return -1;
+            }
+
+            if (Keyboard.current.dKey.wasPressedThisFrame
+                || Keyboard.current.rightArrowKey.wasPressedThisFrame)
+            {
+                return 1;
+            }
+
+            return 0;
+#elif ENABLE_LEGACY_INPUT_MANAGER
+            if (Input.GetKeyDown(KeyCode.A)
+                || Input.GetKeyDown(KeyCode.W)
+                || Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                return -1;
+            }
+
+            if (Input.GetKeyDown(KeyCode.D)
+                || Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                return 1;
+            }
+
+            return 0;
+#else
+            return 0;
 #endif
         }
 

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Gamejam2026.Presentation
 {
@@ -8,6 +9,7 @@ namespace Gamejam2026.Presentation
         [SerializeField] private TMP_Text stageText;
         [SerializeField] private TMP_Text waveText;
         [SerializeField] private TMP_Text bulletText;
+        [SerializeField] private TMP_Text currentBulletText;
         [SerializeField] private TMP_Text mistakeText;
         [SerializeField] private TMP_Text scoreText;
         [SerializeField] private TMP_Text statusText;
@@ -17,14 +19,38 @@ namespace Gamejam2026.Presentation
         [SerializeField] private TMP_Text timerText;
         [SerializeField] private GameObject clearPanel;
         [SerializeField] private TMP_Text clearText;
+        [SerializeField] private Button clearButton;
+        [SerializeField] private GameObject gameOverPanel;
+        [SerializeField] private TMP_Text gameOverText;
+        [SerializeField] private Button restartButton;
 
         private GameObject[] heartIcons;
+        private GameObject[] bulletIcons;
         private int maxBulletCount;
+
+        public event System.Action ClearPanelContinueRequested;
+        public event System.Action RestartRequested;
 
         private void Awake()
         {
             ResolveMissingReferences();
+            RegisterClearButton();
+            RegisterRestartButton();
             HideClearPanel();
+            HideGameOverPanel();
+        }
+
+        private void OnDestroy()
+        {
+            if (clearButton != null)
+            {
+                clearButton.onClick.RemoveListener(HandleClearButtonClicked);
+            }
+
+            if (restartButton != null)
+            {
+                restartButton.onClick.RemoveListener(HandleRestartButtonClicked);
+            }
         }
 
         public void SetStage(string stageName)
@@ -44,9 +70,12 @@ namespace Gamejam2026.Presentation
 
         public void SetBullets(int bullets, int maxBullets)
         {
+            ResolveMissingReferences();
             maxBulletCount = Mathf.Max(0, maxBullets);
             int currentBullets = Mathf.Clamp(bullets, 0, maxBulletCount);
-            SetText(bulletText, $"{currentBullets}/{maxBulletCount}");
+            SetText(currentBulletText, currentBullets.ToString());
+            SetText(bulletText, $"/{maxBulletCount}");
+            SetActiveIconCount(ref bulletIcons, bulletObject, currentBullets, IsBulletIcon);
         }
 
         public void SetMistakes(int mistakes, int maxMistakes)
@@ -74,9 +103,7 @@ namespace Gamejam2026.Presentation
         public void SetTimer(float seconds)
         {
             int totalSeconds = Mathf.Max(0, Mathf.CeilToInt(seconds));
-            int minutes = totalSeconds / 60;
-            int remainderSeconds = totalSeconds % 60;
-            SetText(timerText, $"{minutes:00}:{remainderSeconds:00}");
+            SetText(timerText, totalSeconds.ToString());
         }
 
         public void SetTimerVisible(bool visible)
@@ -108,6 +135,7 @@ namespace Gamejam2026.Presentation
         public void ShowClearPanel(string message = "CLEAR")
         {
             ResolveMissingReferences();
+            RegisterClearButton();
             SetText(clearText, message);
 
             if (clearPanel != null)
@@ -121,6 +149,37 @@ namespace Gamejam2026.Presentation
             if (clearPanel != null)
             {
                 clearPanel.SetActive(false);
+            }
+        }
+
+        public void ShowGameOverPanel(string message = "GAME OVER")
+        {
+            ResolveMissingReferences();
+            RegisterRestartButton();
+            SetText(gameOverText, message);
+
+            if (gameOverPanel != null)
+            {
+                gameOverPanel.SetActive(true);
+            }
+        }
+
+        public void HideGameOverPanel()
+        {
+            if (gameOverPanel != null)
+            {
+                gameOverPanel.SetActive(false);
+            }
+        }
+
+        public void SetClearPanelInteractable(bool interactable)
+        {
+            ResolveMissingReferences();
+            RegisterClearButton();
+
+            if (clearButton != null)
+            {
+                clearButton.interactable = interactable;
             }
         }
 
@@ -144,6 +203,60 @@ namespace Gamejam2026.Presentation
             if (clearText == null && clearPanel != null)
             {
                 clearText = clearPanel.GetComponentInChildren<TMP_Text>(true);
+            }
+
+            if (clearButton == null && clearPanel != null)
+            {
+                clearButton = clearPanel.GetComponentInChildren<Button>(true);
+            }
+
+            if (gameOverPanel == null)
+            {
+                Transform found = transform.Find("Game Over Panel");
+
+                if (found == null)
+                {
+                    found = transform.Find("GameOver Panel");
+                }
+
+                if (found == null)
+                {
+                    found = transform.Find("GameOverPanel");
+                }
+
+                if (found != null)
+                {
+                    gameOverPanel = found.gameObject;
+                }
+            }
+
+            if (gameOverPanel == null)
+            {
+                gameOverPanel = FindFirstSceneObjectByNames("Game Over Panel", "GameOver Panel", "GameOverPanel", "Game Over");
+            }
+
+            if (gameOverText == null && gameOverPanel != null)
+            {
+                gameOverText = FindTextChildByName(gameOverPanel.transform, "Game Over Text", "GameOver Text", "GameOverText", "Title", "Text");
+
+                if (gameOverText == null)
+                {
+                    TMP_Text[] texts = gameOverPanel.GetComponentsInChildren<TMP_Text>(true);
+
+                    for (int i = 0; i < texts.Length; i++)
+                    {
+                        if (texts[i] != null && texts[i].GetComponentInParent<Button>(true) == null)
+                        {
+                            gameOverText = texts[i];
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (restartButton == null && gameOverPanel != null)
+            {
+                restartButton = FindButtonChildByName(gameOverPanel.transform, "Restart Button", "RestartButton", "Restart", "Button");
             }
 
             if (timerObject == null)
@@ -183,8 +296,30 @@ namespace Gamejam2026.Presentation
 
             if (bulletText == null && bulletObject != null)
             {
-                bulletText = bulletObject.GetComponentInChildren<TMP_Text>(true);
+                bulletText = FindTextChildByName(bulletObject.transform, "Bullet Text", "BulletText", "Total Bullet", "TotalBullet");
             }
+
+            if (currentBulletText == null && bulletObject != null)
+            {
+                currentBulletText = FindTextChildByName(bulletObject.transform, "Current Bullet", "CurrentBullet", "Current Bullets", "CurrentBullets");
+            }
+
+            if (bulletText == null && bulletObject != null)
+            {
+                TMP_Text[] texts = bulletObject.GetComponentsInChildren<TMP_Text>(true);
+
+                for (int i = 0; i < texts.Length; i++)
+                {
+                    if (texts[i] != null && texts[i] != currentBulletText)
+                    {
+                        bulletText = texts[i];
+                        break;
+                    }
+                }
+            }
+
+            BringRootTextToFront(bulletText);
+            BringRootTextToFront(currentBulletText);
 
             if (timerText == null && timerObject != null)
             {
@@ -205,9 +340,48 @@ namespace Gamejam2026.Presentation
                     timerText = timerRoot.GetComponentInChildren<TMP_Text>(true);
                 }
             }
+
+            BringRootTextToFront(timerText);
+        }
+
+        private void RegisterClearButton()
+        {
+            if (clearButton == null)
+            {
+                return;
+            }
+
+            clearButton.onClick.RemoveListener(HandleClearButtonClicked);
+            clearButton.onClick.AddListener(HandleClearButtonClicked);
+        }
+
+        private void HandleClearButtonClicked()
+        {
+            ClearPanelContinueRequested?.Invoke();
+        }
+
+        private void RegisterRestartButton()
+        {
+            if (restartButton == null)
+            {
+                return;
+            }
+
+            restartButton.onClick.RemoveListener(HandleRestartButtonClicked);
+            restartButton.onClick.AddListener(HandleRestartButtonClicked);
+        }
+
+        private void HandleRestartButtonClicked()
+        {
+            RestartRequested?.Invoke();
         }
 
         private static void SetActiveIconCount(ref GameObject[] icons, GameObject root, int activeCount)
+        {
+            SetActiveIconCount(ref icons, root, activeCount, null);
+        }
+
+        private static void SetActiveIconCount(ref GameObject[] icons, GameObject root, int activeCount, System.Predicate<GameObject> filter)
         {
             if (root == null)
             {
@@ -216,7 +390,7 @@ namespace Gamejam2026.Presentation
 
             if (icons == null || icons.Length == 0)
             {
-                icons = GetChildObjects(root);
+                icons = GetChildObjects(root, filter);
             }
 
             for (int i = 0; i < icons.Length; i++)
@@ -228,17 +402,93 @@ namespace Gamejam2026.Presentation
             }
         }
 
-        private static GameObject[] GetChildObjects(GameObject root)
+        private static GameObject[] GetChildObjects(GameObject root, System.Predicate<GameObject> filter = null)
         {
             int childCount = root.transform.childCount;
-            GameObject[] children = new GameObject[childCount];
+            System.Collections.Generic.List<GameObject> children = new System.Collections.Generic.List<GameObject>(childCount);
 
             for (int i = 0; i < childCount; i++)
             {
-                children[i] = root.transform.GetChild(i).gameObject;
+                GameObject child = root.transform.GetChild(i).gameObject;
+
+                if (filter == null || filter(child))
+                {
+                    children.Add(child);
+                }
             }
 
-            return children;
+            return children.ToArray();
+        }
+
+        private static bool IsBulletIcon(GameObject target)
+        {
+            if (target == null || target.GetComponent<TMP_Text>() != null)
+            {
+                return false;
+            }
+
+            string normalizedName = target.name.Trim().Replace(" ", string.Empty);
+            return normalizedName.StartsWith("Bullet", System.StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static TMP_Text FindTextChildByName(Transform root, params string[] names)
+        {
+            if (root == null)
+            {
+                return null;
+            }
+
+            TMP_Text[] texts = root.GetComponentsInChildren<TMP_Text>(true);
+
+            for (int i = 0; i < texts.Length; i++)
+            {
+                if (texts[i] == null)
+                {
+                    continue;
+                }
+
+                string textName = texts[i].name.Trim();
+
+                for (int j = 0; j < names.Length; j++)
+                {
+                    if (textName == names[j])
+                    {
+                        return texts[i];
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private static Button FindButtonChildByName(Transform root, params string[] names)
+        {
+            if (root == null)
+            {
+                return null;
+            }
+
+            Button[] buttons = root.GetComponentsInChildren<Button>(true);
+
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i] == null)
+                {
+                    continue;
+                }
+
+                string buttonName = buttons[i].name.Trim();
+
+                for (int j = 0; j < names.Length; j++)
+                {
+                    if (buttonName == names[j])
+                    {
+                        return buttons[i];
+                    }
+                }
+            }
+
+            return buttons.Length > 0 ? buttons[0] : null;
         }
 
         private static GameObject FindFirstSceneObjectByNames(params string[] names)
@@ -283,6 +533,16 @@ namespace Gamejam2026.Presentation
             if (text != null)
             {
                 text.text = value;
+                text.enabled = true;
+                text.ForceMeshUpdate();
+            }
+        }
+
+        private static void BringRootTextToFront(TMP_Text text)
+        {
+            if (text != null && text.transform.parent != null && text.transform.parent.GetComponent<TMP_Text>() == null)
+            {
+                text.transform.SetAsLastSibling();
             }
         }
     }
