@@ -26,12 +26,22 @@ namespace Gamejam2026.Presentation
         [SerializeField] private Sprite clockSprite;
         [SerializeField] private Sprite downgradeSprite;
         [SerializeField] private Sprite extraMagazineSprite;
+        [SerializeField] private Sprite autoPassHumanSprite;
+        [SerializeField] private Sprite blankBulletSprite;
+        [SerializeField] private Sprite bonusChoiceSprite;
+        [SerializeField] private Sprite heartSprite;
+        [SerializeField] private Sprite theftSprite;
 
         private readonly RewardItemType[] allRewards =
         {
             RewardItemType.Clock,
             RewardItemType.Downgrade,
-            RewardItemType.ExtraMagazine
+            RewardItemType.ExtraMagazine,
+            RewardItemType.AutoPassHuman,
+            RewardItemType.BlankBullet,
+            RewardItemType.BonusChoice,
+            RewardItemType.Heart,
+            RewardItemType.Theft
         };
 
         private bool droneClicked;
@@ -254,6 +264,16 @@ namespace Gamejam2026.Presentation
                     return "\ub2e4\uc6b4 \uadf8\ub808\uc774\ub4dc";
                 case RewardItemType.ExtraMagazine:
                     return "\uc5ec\ubd84 \ud0c4\ucc3d";
+                case RewardItemType.AutoPassHuman:
+                    return "\uc2ec\uc0ac\uae30";
+                case RewardItemType.BlankBullet:
+                    return "\uacf5\ud3ec\ud0c4";
+                case RewardItemType.BonusChoice:
+                    return "\ubf40\ub098\uc2a4~~~!";
+                case RewardItemType.Heart:
+                    return "\uc2ec\uc7a5";
+                case RewardItemType.Theft:
+                    return "\ub3c4\ub09c";
                 default:
                     return rewardType.ToString();
             }
@@ -269,6 +289,16 @@ namespace Gamejam2026.Presentation
                     return "\uc774\uc804 \uc2a4\ud14c\uc774\uc9c0 AI 1\ub9c8\ub9ac \ub4f1\uc7a5";
                 case RewardItemType.ExtraMagazine:
                     return "AI \uc22b\uc790\ubcf4\ub2e4 \ucd1d\uc54c +1";
+                case RewardItemType.AutoPassHuman:
+                    return "\uba40\uc9f1\ud55c \uc778\uac04 1\uba85 \uc790\ub3d9 \ud1b5\uacfc";
+                case RewardItemType.BlankBullet:
+                    return "\uc0ac\ub78c\uc744 \uc3dc\ub3c4 1\ud68c \ubd88\ubc8c";
+                case RewardItemType.BonusChoice:
+                    return "\ubcf4\uae09 \uc120\ud0dd\uc9c0 \ud6a8\uacfc";
+                case RewardItemType.Heart:
+                    return "\uc0dd\uba85 +1";
+                case RewardItemType.Theft:
+                    return "AI 1\uba85\uacfc \ucd1d\uc54c 1\ubc1c \uc81c\uac70";
                 default:
                     return string.Empty;
             }
@@ -279,14 +309,45 @@ namespace Gamejam2026.Presentation
             switch (rewardType)
             {
                 case RewardItemType.Clock:
-                    return clockSprite;
+                    return GetFallbackSprite(clockSprite, 0);
                 case RewardItemType.Downgrade:
-                    return downgradeSprite;
+                    return GetFallbackSprite(downgradeSprite, 1);
                 case RewardItemType.ExtraMagazine:
-                    return extraMagazineSprite;
+                    return GetFallbackSprite(extraMagazineSprite, 2);
+                case RewardItemType.AutoPassHuman:
+                    return GetFallbackSprite(autoPassHumanSprite, 3);
+                case RewardItemType.BlankBullet:
+                    return GetFallbackSprite(blankBulletSprite, 4);
+                case RewardItemType.BonusChoice:
+                    return GetFallbackSprite(bonusChoiceSprite, 5);
+                case RewardItemType.Heart:
+                    return GetFallbackSprite(heartSprite, 6);
+                case RewardItemType.Theft:
+                    return GetFallbackSprite(theftSprite, 7);
                 default:
                     return null;
             }
+        }
+
+        private Sprite GetFallbackSprite(Sprite preferred, int rewardIndex)
+        {
+            if (preferred != null)
+            {
+                return preferred;
+            }
+
+            Sprite[] fallbackSprites = { clockSprite, downgradeSprite, extraMagazineSprite };
+            List<Sprite> availableSprites = new List<Sprite>();
+
+            for (int i = 0; i < fallbackSprites.Length; i++)
+            {
+                if (fallbackSprites[i] != null)
+                {
+                    availableSprites.Add(fallbackSprites[i]);
+                }
+            }
+
+            return availableSprites.Count > 0 ? availableSprites[rewardIndex % availableSprites.Count] : null;
         }
 
         private static Image FindRewardIcon(Button button)
@@ -358,21 +419,6 @@ namespace Gamejam2026.Presentation
             if (secondChoiceButton != null)
             {
                 secondChoiceButton.interactable = false;
-            }
-        }
-
-        private static string GetRewardLabel(RewardItemType rewardType)
-        {
-            switch (rewardType)
-            {
-                case RewardItemType.Clock:
-                    return "시계 +2초";
-                case RewardItemType.Downgrade:
-                    return "다운 그레이드";
-                case RewardItemType.ExtraMagazine:
-                    return "여분 탄창";
-                default:
-                    return rewardType.ToString();
             }
         }
 

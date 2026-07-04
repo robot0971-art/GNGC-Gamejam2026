@@ -24,6 +24,17 @@ namespace Gamejam2026.Gameplay
             MistakesChanged?.Invoke(Mistakes);
         }
 
+        public void RestoreOneMistake()
+        {
+            if (Mistakes <= 0)
+            {
+                return;
+            }
+
+            Mistakes--;
+            MistakesChanged?.Invoke(Mistakes);
+        }
+
         public void AddScore(int amount)
         {
             Score += amount;

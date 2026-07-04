@@ -1544,9 +1544,14 @@ MonoBehaviour:
   itemSpitSeconds: 0.25
   droneStartY: 771
   droneLandingY: 28
-  clockSprite: {fileID: 8748220132355621472, guid: 0324de548306580439df4c85c57b771a, type: 3}
-  downgradeSprite: {fileID: 4872558071537375170, guid: 9bc3a35bde160cb4888952f750448b84, type: 3}
-  extraMagazineSprite: {fileID: -582233188706413269, guid: 5507aeda370f0b941ac3281333d137d7, type: 3}
+  clockSprite: {fileID: -7009108470514386699, guid: 70a9bca68c1657d4596431757fd51f6c, type: 3}
+  downgradeSprite: {fileID: 5037443118111565742, guid: 3f51c8da01a78c34185d523392a33e96, type: 3}
+  extraMagazineSprite: {fileID: 8260849528404154547, guid: e80eef6b95bd6d34eb937b00d18d6c7d, type: 3}
+  autoPassHumanSprite: {fileID: 924655904134631483, guid: 08cfbadd9bb010647b3c6494dab8f801, type: 3}
+  blankBulletSprite: {fileID: 4918122362876435120, guid: c82073770c74fb742bc8d996c562b17a, type: 3}
+  bonusChoiceSprite: {fileID: 4786393457526667772, guid: afd6070fef0a26e46b1cad96991a2fc1, type: 3}
+  heartSprite: {fileID: -2598150795085903042, guid: 8718f5163238b5249b725e762e6895c9, type: 3}
+  theftSprite: {fileID: -338418730020592647, guid: 6bd1ed973ce74774aa1b0b45a3d472f0, type: 3}
 --- !u!225 &316126210
 CanvasGroup:
   m_ObjectHideFlags: 0

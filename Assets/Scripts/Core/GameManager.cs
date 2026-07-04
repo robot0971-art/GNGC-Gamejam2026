@@ -64,6 +64,9 @@ namespace Gamejam2026.Core
         private int nextStageBonusSeconds;
         private int nextStageBonusBullets;
         private bool nextStageDowngradeOneAI;
+        private bool nextStageAutoPassHuman;
+        private bool nextStageBlankBullet;
+        private bool nextStageTheft;
         private StageConfig CurrentStage => stages[currentStageIndex];
 
         protected override void Awake()
@@ -328,6 +331,9 @@ namespace Gamejam2026.Core
             int bonusSeconds = nextStageBonusSeconds;
             int bonusBullets = nextStageBonusBullets;
             bool downgradeOneAI = nextStageDowngradeOneAI;
+            bool autoPassHuman = nextStageAutoPassHuman;
+            bool theft = nextStageTheft;
+            int autoPassedHumanCount = 0;
 
             WaveData wave = entrantDatabase.BuildWave(CurrentStage, currentStageNumber);
 
@@ -336,7 +342,22 @@ namespace Gamejam2026.Core
                 entrantDatabase.TryDowngradeOneAI(wave, currentStageNumber);
             }
 
-            stageHumanCount += CountHumans(wave);
+            if (autoPassHuman)
+            {
+                autoPassedHumanCount = RemoveRandomEntrant(wave, EntrantType.Human) ? 1 : 0;
+            }
+
+            if (theft && wave.AiCount >= 2)
+            {
+                RemoveRandomEntrant(wave, EntrantType.AI);
+                Debug.Log($"Theft reward applied: AI count {wave.AiCount + 1} -> {wave.AiCount}, bullets will follow current AI count plus bonuses.");
+            }
+            else if (theft)
+            {
+                Debug.Log($"Theft reward skipped: AI count is {wave.AiCount}, needs at least 2.");
+            }
+
+            stageHumanCount += CountHumans(wave) + autoPassedHumanCount;
             wavePresenter.ShowWave(wave);
             Vector3 previewCenter = wavePresenter.GetCenter();
             wavePresenter.HideAllEntrants();
@@ -365,9 +386,15 @@ namespace Gamejam2026.Core
             state = GameState.Judging;
             hudView?.SetStatus("ELIMINATE AI");
             int bulletCount = Mathf.Max(0, wave.AiCount + bonusBullets);
+            LogFinalWaveAfterRewards(wave, bulletCount);
             hudView?.SetBullets(bulletCount, bulletCount);
             hudView?.SetGameplayHudVisible(true);
             StartTimer(judgementTimeSeconds + bonusSeconds);
+
+            if (nextStageBlankBullet)
+            {
+                shootingController.EnableBlankNextHumanShot();
+            }
 
             if (sniperZoomInput != null && wavePresenter.TryGetFirstSelectableSlot(out EntrantSlot firstTargetSlot))
             {
@@ -600,6 +627,8 @@ namespace Gamejam2026.Core
             shootingController?.Stop();
             StopTimer();
             wavePresenter?.HideAllEntrants();
+            sniperZoomInput?.HideZoomVisualsForIntro();
+            sniperZoomInput?.ResetSniperVisualsToInitialPosition();
             hudView?.SetGameplayHudVisible(false);
             hudView?.SetStatus(missionFailed ? "MISSION FAILED" : "FAILED");
 
@@ -718,6 +747,80 @@ namespace Gamejam2026.Core
             return count;
         }
 
+        private static bool RemoveRandomEntrant(WaveData wave, EntrantType type)
+        {
+            if (wave == null)
+            {
+                return false;
+            }
+
+            int matchingCount = 0;
+
+            for (int i = 0; i < wave.Entrants.Count; i++)
+            {
+                if (wave.Entrants[i] != null && wave.Entrants[i].type == type)
+                {
+                    matchingCount++;
+                }
+            }
+
+            if (matchingCount == 0)
+            {
+                return false;
+            }
+
+            int selectedMatch = Random.Range(0, matchingCount);
+
+            for (int i = 0; i < wave.Entrants.Count; i++)
+            {
+                if (wave.Entrants[i] == null || wave.Entrants[i].type != type)
+                {
+                    continue;
+                }
+
+                if (selectedMatch == 0)
+                {
+                    wave.Entrants.RemoveAt(i);
+                    return true;
+                }
+
+                selectedMatch--;
+            }
+
+            return false;
+        }
+
+        private static void LogFinalWaveAfterRewards(WaveData wave, int bulletCount)
+        {
+            if (wave == null)
+            {
+                return;
+            }
+
+            int humanCount = CountHumans(wave);
+            System.Text.StringBuilder builder = new System.Text.StringBuilder();
+            builder.Append($"Final wave after rewards: humans={humanCount}, ai={wave.AiCount}, bullets={bulletCount}: ");
+
+            for (int i = 0; i < wave.Entrants.Count; i++)
+            {
+                EntrantData entrant = wave.Entrants[i];
+                builder.Append('[');
+                builder.Append(i + 1);
+                builder.Append(' ');
+                builder.Append(entrant != null ? entrant.type.ToString() : "null");
+                builder.Append(' ');
+                builder.Append(entrant != null ? entrant.displayName : "<null>");
+                builder.Append(']');
+
+                if (i < wave.Entrants.Count - 1)
+                {
+                    builder.Append(' ');
+                }
+            }
+
+            Debug.Log(builder.ToString());
+        }
+
         private void HandleClearPanelContinueRequested()
         {
             if (state == GameState.GameOver && stageTransitionRoutine == null)
@@ -807,6 +910,21 @@ namespace Gamejam2026.Core
                 case RewardItemType.ExtraMagazine:
                     nextStageBonusBullets += 1;
                     break;
+                case RewardItemType.AutoPassHuman:
+                    nextStageAutoPassHuman = true;
+                    break;
+                case RewardItemType.BlankBullet:
+                    nextStageBlankBullet = true;
+                    break;
+                case RewardItemType.BonusChoice:
+                    break;
+                case RewardItemType.Heart:
+                    playerState.RestoreOneMistake();
+                    break;
+                case RewardItemType.Theft:
+                    nextStageTheft = true;
+                    Debug.Log("Reward selected: Theft. Next stages will remove one AI when at least two AI are present.");
+                    break;
             }
         }
 
@@ -815,6 +933,10 @@ namespace Gamejam2026.Core
             nextStageBonusSeconds = 0;
             nextStageBonusBullets = 0;
             nextStageDowngradeOneAI = false;
+            nextStageAutoPassHuman = false;
+            nextStageBlankBullet = false;
+            nextStageTheft = false;
+            shootingController?.DisableBlankNextHumanShot();
         }
 
         private IEnumerator RestartStageRoutine()
@@ -825,6 +947,8 @@ namespace Gamejam2026.Core
             shootingController?.Stop();
             StopTimer();
             RestoreTimeScale();
+            sniperZoomInput?.HideZoomVisualsForIntro();
+            sniperZoomInput?.ResetSniperVisualsToInitialPosition();
             if (failedStageIndex >= 0 && failedStageIndex < stages.Length)
             {
                 currentStageIndex = failedStageIndex;

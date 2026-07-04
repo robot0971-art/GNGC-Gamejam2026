@@ -4,6 +4,11 @@ namespace Gamejam2026.Gameplay
     {
         Clock,
         Downgrade,
-        ExtraMagazine
+        ExtraMagazine,
+        AutoPassHuman,
+        BlankBullet,
+        BonusChoice,
+        Heart,
+        Theft
     }
 }

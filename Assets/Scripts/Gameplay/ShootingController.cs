@@ -21,6 +21,7 @@ namespace Gamejam2026.Gameplay
         private int bullets;
         private bool canShoot;
         private EntrantSlot overrideTarget;
+        private bool blankNextHumanShot;
 
         public int Bullets => bullets;
 
@@ -45,6 +46,16 @@ namespace Gamejam2026.Gameplay
         {
             bullets = Mathf.Max(0, bulletCount);
             canShoot = bullets > 0;
+        }
+
+        public void EnableBlankNextHumanShot()
+        {
+            blankNextHumanShot = true;
+        }
+
+        public void DisableBlankNextHumanShot()
+        {
+            blankNextHumanShot = false;
         }
 
         public void Stop()
@@ -139,6 +150,13 @@ namespace Gamejam2026.Gameplay
         private void Shoot(EntrantSlot slot)
         {
             bool correct = IsAITarget(slot);
+
+            if (!correct && blankNextHumanShot)
+            {
+                blankNextHumanShot = false;
+                ShotFired?.Invoke(bullets);
+                return;
+            }
 
             if (!TryConsumeBullet())
             {
