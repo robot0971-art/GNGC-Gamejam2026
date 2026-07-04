@@ -1,0 +1,253 @@
+fileFormatVersion: 2
+guid: ff8db496f174293488b88bf56d300056
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4441375593141692700
+    second: dron_title_0
+  - first:
+      213: -2204468532776358334
+    second: dron_title_1
+  - first:
+      213: 6642247894415251163
+    second: dron_title_2
+  - first:
+      213: 4460192791597476238
+    second: dron_title_3
+  - first:
+      213: -1093488131139909216
+    second: dron_title_4
+  - first:
+      213: -6781390198262597147
+    second: dron_title_5
+  - first:
+      213: -3472362440471145452
+    second: dron_title_6
+  - first:
+      213: 5530886727484407796
+    second: dron_title_7
+  - first:
+      213: -2274016660595527494
+    second: dron_title_8
+  - first:
+      213: -8883597889350759026
+    second: dron_title_9
+  - first:
+      213: 8220207176589538356
+    second: dron_title_10
+  - first:
+      213: 5910003354545772824
+    second: dron_title_11
+  - first:
+      213: -4764254661118290280
+    second: dron_title_12
+  - first:
+      213: -1748583400831810263
+    second: dron_title_13
+  - first:
+      213: 6885665476020294258
+    second: dron_title_14
+  - first:
+      213: 2455934196577831600
+    second: dron_title_15
+  - first:
+      213: 6934941346875053602
+    second: dron_title_16
+  - first:
+      213: -811162195466933929
+    second: dron_title_17
+  - first:
+      213: -4639709681144960517
+    second: dron_title_18
+  - first:
+      213: 5748123303437969360
+    second: dron_title_19
+  - first:
+      213: 8288154674693784770
+    second: dron_title_20
+  - first:
+      213: 9171509568887294166
+    second: dron_title_21
+  - first:
+      213: 5642922611870267538
+    second: dron_title_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: dron_title_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 680
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c19ec4f029fe2ad30800000000000000
+      internalID: 4441375593141692700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dron_title_12
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 0
+        width: 6
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8969b88b0a7f1edb0800000000000000
+      internalID: -4764254661118290280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 794acfd508a7b16448e5d1fae0bb7ff9
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      dron_title_0: 4441375593141692700
+      dron_title_1: -2204468532776358334
+      dron_title_10: 8220207176589538356
+      dron_title_11: 5910003354545772824
+      dron_title_12: -4764254661118290280
+      dron_title_13: -1748583400831810263
+      dron_title_14: 6885665476020294258
+      dron_title_15: 2455934196577831600
+      dron_title_16: 6934941346875053602
+      dron_title_17: -811162195466933929
+      dron_title_18: -4639709681144960517
+      dron_title_19: 5748123303437969360
+      dron_title_2: 6642247894415251163
+      dron_title_20: 8288154674693784770
+      dron_title_21: 9171509568887294166
+      dron_title_22: 5642922611870267538
+      dron_title_3: 4460192791597476238
+      dron_title_4: -1093488131139909216
+      dron_title_5: -6781390198262597147
+      dron_title_6: -3472362440471145452
+      dron_title_7: 5530886727484407796
+      dron_title_8: -2274016660595527494
+      dron_title_9: -8883597889350759026
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

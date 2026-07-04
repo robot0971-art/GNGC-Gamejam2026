@@ -47,13 +47,8 @@ namespace Gamejam2026.Presentation
                 gameObject.SetActive(true);
             }
 
-            if (playRoutine != null)
-            {
-                StopCoroutine(playRoutine);
-            }
-
-            playRoutine = StartCoroutine(PlayRoutine());
-            yield return playRoutine;
+            playRoutine = null;
+            yield return PlayRoutine();
             playRoutine = null;
         }
 
@@ -75,6 +70,8 @@ namespace Gamejam2026.Presentation
                     {
                         CanvasGroup sceneGroup = GetOrAddCanvasGroup(storyScenes[i]);
                         sceneGroup.alpha = 0f;
+                        sceneGroup.blocksRaycasts = false;
+                        sceneGroup.interactable = false;
                         storyScenes[i].SetActive(false);
                     }
                 }
@@ -124,6 +121,8 @@ namespace Gamejam2026.Presentation
                 storyScenes[i].SetActive(true);
                 CanvasGroup sceneGroup = GetOrAddCanvasGroup(storyScenes[i]);
                 sceneGroup.alpha = 0f;
+                sceneGroup.blocksRaycasts = false;
+                sceneGroup.interactable = false;
 
                 yield return Fade(sceneGroup, 0f, 1f, fadeSeconds);
                 yield return new WaitForSeconds(holdSeconds);
@@ -134,6 +133,11 @@ namespace Gamejam2026.Presentation
                 {
                     yield return Fade(sceneGroup, 1f, 0f, fadeSeconds);
                     storyScenes[i].SetActive(false);
+                }
+                else
+                {
+                    sceneGroup.blocksRaycasts = true;
+                    sceneGroup.interactable = true;
                 }
             }
 
@@ -215,6 +219,7 @@ namespace Gamejam2026.Presentation
                 yield return null;
             }
 
+            playRoutine = null;
             HideImmediate();
             RestartRequested?.Invoke();
         }

@@ -213,6 +213,7 @@ namespace Gamejam2026.DebugTools
             SetZoomVisuals(false);
             SetShootingAimPoint(false);
             SetShootingTargetOverride(false);
+            SetSniperMaskVisible(false);
         }
 
         public IEnumerator PlayIntroScenesOnce()

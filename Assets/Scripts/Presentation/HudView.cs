@@ -982,16 +982,11 @@ namespace Gamejam2026.Presentation
         private void ResolveStageTitleSprites()
         {
 #if UNITY_EDITOR
-            if (stageTitleSprites != null && stageTitleSprites.Length > 0)
-            {
-                return;
-            }
-
             stageTitleSprites = new Sprite[5];
 
             for (int i = 0; i < stageTitleSprites.Length; i++)
             {
-                string path = $"Assets/Image/Stage/progress_title_{i + 1}.png";
+                string path = $"Assets/Image/Mission UI/progress_title_{i + 1}.png";
                 stageTitleSprites[i] = AssetDatabase.LoadAssetAtPath<Sprite>(path);
             }
 #endif
@@ -1019,29 +1014,31 @@ namespace Gamejam2026.Presentation
             }
 
 #if UNITY_EDITOR
-            if (progressPanelDefaultSprites == null || progressPanelDefaultSprites.Length == 0)
-            {
-                progressPanelDefaultSprites = new Sprite[5];
-
-                for (int i = 0; i < progressPanelDefaultSprites.Length; i++)
-                {
-                    string path = $"Assets/Image/Stage/progress_panel_{i + 1}_default.png";
-                    progressPanelDefaultSprites[i] = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-                }
-            }
-
-            if (progressPanelSelectedSprites == null || progressPanelSelectedSprites.Length == 0)
-            {
-                progressPanelSelectedSprites = new Sprite[5];
-
-                for (int i = 0; i < progressPanelSelectedSprites.Length; i++)
-                {
-                    string path = $"Assets/Image/Stage/progress_panel_{i + 1}_select_.png";
-                    progressPanelSelectedSprites[i] = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-                }
-            }
+            ResolveProgressPanelSpritesFromMissionUi();
 #endif
         }
+
+#if UNITY_EDITOR
+        private void ResolveProgressPanelSpritesFromMissionUi()
+        {
+            const int progressPanelCount = 5;
+            const string spriteFolder = "Assets/Image/Mission UI";
+
+            progressPanelDefaultSprites = new Sprite[progressPanelCount];
+            progressPanelSelectedSprites = new Sprite[progressPanelCount];
+
+            for (int i = 0; i < progressPanelCount; i++)
+            {
+                int stageNumber = i + 1;
+
+                string defaultPath = $"{spriteFolder}/progress_panel_{stageNumber}_default.png";
+                progressPanelDefaultSprites[i] = AssetDatabase.LoadAssetAtPath<Sprite>(defaultPath);
+
+                string selectedPath = $"{spriteFolder}/progress_panel_{stageNumber}_select_.png";
+                progressPanelSelectedSprites[i] = AssetDatabase.LoadAssetAtPath<Sprite>(selectedPath);
+            }
+        }
+#endif
 
         private void ResolveRankSprites()
         {

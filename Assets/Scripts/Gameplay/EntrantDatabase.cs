@@ -91,6 +91,49 @@ namespace Gamejam2026.Gameplay
             return wave;
         }
 
+        public bool TryDowngradeOneAI(WaveData wave, int currentRound)
+        {
+            if (wave == null || currentRound <= 1)
+            {
+                return false;
+            }
+
+            List<int> aiIndices = new List<int>();
+
+            for (int i = 0; i < wave.Entrants.Count; i++)
+            {
+                if (wave.Entrants[i] != null && wave.Entrants[i].type == EntrantType.AI)
+                {
+                    aiIndices.Add(i);
+                }
+            }
+
+            if (aiIndices.Count == 0)
+            {
+                return false;
+            }
+
+            Shuffle(aiIndices);
+
+            for (int i = 0; i < aiIndices.Count; i++)
+            {
+                int targetIndex = aiIndices[i];
+                int lowerRound = Mathf.Max(1, currentRound - 1);
+                List<EntrantData> lowerRoundPool = BuildRoundPool(ais, lowerRound);
+                HashSet<int> blockedPairIds = BuildUsedPairIdsExcept(wave.Entrants, targetIndex);
+
+                if (TryTakeRandomAvoidingPairs(lowerRoundPool, blockedPairIds, out EntrantData downgradedAI))
+                {
+                    wave.Entrants[targetIndex] = downgradedAI;
+                    Debug.Log($"Downgraded one AI to art round {lowerRound}: {GetEntrantDebugName(downgradedAI)}");
+                    return true;
+                }
+            }
+
+            Debug.LogWarning($"Could not downgrade AI for stage round {currentRound}. No lower-round AI matched pair rules.");
+            return false;
+        }
+
         private static void LogWaveSelection(WaveData wave, int round)
         {
             if (wave == null)
@@ -227,6 +270,28 @@ namespace Gamejam2026.Gameplay
             }
         }
 
+        private static HashSet<int> BuildUsedPairIdsExcept(List<EntrantData> entrants, int excludedIndex)
+        {
+            HashSet<int> usedPairIds = new HashSet<int>();
+
+            if (entrants == null)
+            {
+                return usedPairIds;
+            }
+
+            for (int i = 0; i < entrants.Count; i++)
+            {
+                if (i == excludedIndex)
+                {
+                    continue;
+                }
+
+                AddPairId(usedPairIds, entrants[i]);
+            }
+
+            return usedPairIds;
+        }
+
         private static string GetEntrantDebugName(EntrantData entrant)
         {
             if (entrant == null)
@@ -297,12 +362,12 @@ namespace Gamejam2026.Gameplay
             return entrant.sprite != null ? ParseRound(string.Empty, entrant.sprite.name) : 0;
         }
 
-        private static void Shuffle(IList<EntrantData> entrants)
+        private static void Shuffle<T>(IList<T> entrants)
         {
             for (int i = entrants.Count - 1; i > 0; i--)
             {
                 int swapIndex = Random.Range(0, i + 1);
-                EntrantData temporary = entrants[i];
+                T temporary = entrants[i];
                 entrants[i] = entrants[swapIndex];
                 entrants[swapIndex] = temporary;
             }
