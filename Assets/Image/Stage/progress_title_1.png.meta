@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 16f6871bb08a09d4aa7e38f37093c4c0
+guid: 431978cc6e022b2429a21e3a6d71c613
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2096547348714954226
-    second: Sniper Scene3_0
+      213: -7376023728752058386
+    second: progress_title_1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sniper Scene3_0
+      name: progress_title_1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1920
-        height: 1080
+        width: 1042
+        height: 231
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e02ee095b4197e2e0800000000000000
-      internalID: -2096547348714954226
+      spriteID: eef91e0af7913a990800000000000000
+      internalID: -7376023728752058386
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Sniper Scene3_0: -2096547348714954226
+      progress_title_1_0: -7376023728752058386
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

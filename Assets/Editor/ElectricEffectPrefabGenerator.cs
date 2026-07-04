@@ -3,7 +3,7 @@ using Gamejam2026.Presentation;
 using UnityEditor;
 using UnityEngine;
 
-namespace Gamejam2026.Editor
+namespace gamelan2026.Editor
 {
     public static class ElectricEffectPrefabGenerator
     {
@@ -12,7 +12,7 @@ namespace Gamejam2026.Editor
         private const string BoltPrefabPath = PrefabDirectory + "/ElectricBolt.prefab";
         private const string ElectricMaterialPath = PrefabDirectory + "/ElectricEffect.mat";
 
-        [MenuItem("Tools/Gamejam/Create Electric Effect Prefabs")]
+        [MenuItem("Tools/GameJam/Create Electric Effect Prefabs")]
         public static void CreateElectricEffectPrefabs()
         {
             Directory.CreateDirectory(PrefabDirectory);
@@ -23,7 +23,7 @@ namespace Gamejam2026.Editor
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            Debug.Log("[Gamejam] Electric effect prefabs generated.");
+            Debug.Log("[GameJam] Electric effect prefabs generated.");
         }
 
         private static Material CreateElectricMaterial()

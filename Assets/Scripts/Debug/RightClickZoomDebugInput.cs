@@ -21,11 +21,13 @@ namespace Gamejam2026.DebugTools
         [SerializeField] private GameObject sniperMaskObject;
         [SerializeField] private GameObject sniperSceneObject;
         [SerializeField] private GameObject[] sniperSceneObjects;
+        [SerializeField] private GameObject startCutscenePanelObject;
+        [SerializeField] private GameObject[] startCutsceneObjects;
         [SerializeField] private GameObject cutsceneBackdropObject;
         [SerializeField] private float zoomSeconds = 0.15f;
-        [SerializeField] private float transitionFadeSeconds = 0.35f;
-        [SerializeField] private float cutsceneBlackHoldSeconds = 0.15f;
-        [SerializeField] private float sniperSceneSeconds = 2.5f;
+        [SerializeField] private float transitionFadeSeconds = 0.525f;
+        [SerializeField] private float cutsceneBlackHoldSeconds;
+        [SerializeField] private float sniperSceneSeconds = 3.75f;
         [SerializeField] private bool followMouseWhileZoomed = true;
         [SerializeField] private bool selectTargetWithADKeys = true;
         [SerializeField] private bool movePlayerSniperWithMouse;
@@ -222,6 +224,11 @@ namespace Gamejam2026.DebugTools
 
             yield return PlaySniperScenesRoutine();
             hasPlayedSniperScene = true;
+        }
+
+        public void ResetIntroPlayback()
+        {
+            hasPlayedSniperScene = false;
         }
 
         private void EnterZoomMode()
@@ -563,6 +570,22 @@ namespace Gamejam2026.DebugTools
                 }
             }
 
+            if (startCutscenePanelObject == null)
+            {
+                startCutscenePanelObject = FindSceneObjectByName("Start Cutscene Panel");
+            }
+
+            if ((startCutsceneObjects == null || startCutsceneObjects.Length == 0) && startCutscenePanelObject != null)
+            {
+                int childCount = startCutscenePanelObject.transform.childCount;
+                startCutsceneObjects = new GameObject[childCount];
+
+                for (int i = 0; i < childCount; i++)
+                {
+                    startCutsceneObjects[i] = startCutscenePanelObject.transform.GetChild(i).gameObject;
+                }
+            }
+
             if (cutsceneBackdropObject == null)
             {
                 cutsceneBackdropObject = FindSceneObjectByName("Cutscene Backdrop");
@@ -755,19 +778,44 @@ namespace Gamejam2026.DebugTools
             ResolveMissingReferences();
             HideZoomVisualsForIntro();
             SetSniperScenesActive(false);
+            SetStartCutsceneObjectsActive(false);
 
-            if (sniperSceneObjects == null || sniperSceneObjects.Length == 0)
+            if ((startCutsceneObjects == null || startCutsceneObjects.Length == 0)
+                && (sniperSceneObjects == null || sniperSceneObjects.Length == 0))
             {
                 yield break;
             }
 
-            GameObject backdrop = GetOrCreateCutsceneBackdrop();
+            if (startCutsceneObjects != null && startCutsceneObjects.Length > 0)
+            {
+                yield return PlayIntroSceneSequence(startCutsceneObjects, startCutscenePanelObject, true);
+            }
+
+            if (sniperSceneObjects != null && sniperSceneObjects.Length > 0)
+            {
+                yield return PlayIntroSceneSequence(sniperSceneObjects, GetOrCreateCutsceneBackdrop(), false);
+            }
+        }
+
+        private IEnumerator PlayIntroSceneSequence(GameObject[] scenes, GameObject backdrop, bool keepBackdropOrder)
+        {
+            GameObject currentScene = GetNextIntroScene(scenes, 0);
+
+            if (currentScene == null)
+            {
+                yield break;
+            }
+
             CanvasGroup backdropCanvasGroup = GetOrAddCanvasGroup(backdrop);
 
             if (backdrop != null)
             {
                 backdrop.SetActive(true);
-                backdrop.transform.SetAsFirstSibling();
+
+                if (!keepBackdropOrder)
+                {
+                    backdrop.transform.SetAsFirstSibling();
+                }
             }
 
             if (backdropCanvasGroup != null)
@@ -780,19 +828,12 @@ namespace Gamejam2026.DebugTools
                 yield return new WaitForSeconds(cutsceneBlackHoldSeconds);
             }
 
-            GameObject currentScene = GetNextSniperScene(0);
-
-            if (currentScene == null)
-            {
-                yield break;
-            }
-
             yield return FadeCanvasGroup(currentScene, 0f, 1f, transitionFadeSeconds, true);
             yield return new WaitForSeconds(sniperSceneSeconds);
 
-            for (int i = 1; i < sniperSceneObjects.Length; i++)
+            for (int i = 1; i < scenes.Length; i++)
             {
-                GameObject nextScene = GetNextSniperScene(i);
+                GameObject nextScene = GetNextIntroScene(scenes, i);
 
                 if (nextScene == null)
                 {
@@ -807,18 +848,18 @@ namespace Gamejam2026.DebugTools
             yield return FadeSceneAndBackdropOut(currentScene, backdrop, transitionFadeSeconds);
         }
 
-        private GameObject GetNextSniperScene(int startIndex)
+        private GameObject GetNextIntroScene(GameObject[] scenes, int startIndex)
         {
-            if (sniperSceneObjects == null)
+            if (scenes == null)
             {
                 return null;
             }
 
-            for (int i = startIndex; i < sniperSceneObjects.Length; i++)
+            for (int i = startIndex; i < scenes.Length; i++)
             {
-                if (sniperSceneObjects[i] != null)
+                if (scenes[i] != null)
                 {
-                    return sniperSceneObjects[i];
+                    return scenes[i];
                 }
             }
 
@@ -837,6 +878,27 @@ namespace Gamejam2026.DebugTools
                 if (sniperSceneObjects[i] != null)
                 {
                     sniperSceneObjects[i].SetActive(active);
+                }
+            }
+        }
+
+        private void SetStartCutsceneObjectsActive(bool active)
+        {
+            if (startCutscenePanelObject != null)
+            {
+                startCutscenePanelObject.SetActive(active);
+            }
+
+            if (startCutsceneObjects == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < startCutsceneObjects.Length; i++)
+            {
+                if (startCutsceneObjects[i] != null)
+                {
+                    startCutsceneObjects[i].SetActive(active);
                 }
             }
         }

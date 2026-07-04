@@ -20,6 +20,7 @@ namespace Gamejam2026.Core
         [SerializeField] private Gamejam2026.Presentation.PlayerGunRecoil playerGunRecoil;
         [SerializeField] private PlayerMuzzleFlash playerMuzzleFlash;
         [SerializeField] private EffectSpawner effectSpawner;
+        [SerializeField] private FailStoryCutscenePlayer failStoryCutscenePlayer;
         [SerializeField] private GameObject playerObject;
 
         [Header("Timing")]
@@ -27,6 +28,8 @@ namespace Gamejam2026.Core
         [SerializeField] private float resolveDelaySeconds = 0.65f;
         [SerializeField] private float previewFadeSeconds = 0.18f;
         [SerializeField] private float stageTransitionFadeSeconds = 0.45f;
+        [SerializeField] private float stagePanelFadeSeconds = 0.35f;
+        [SerializeField] private float stagePanelHoldSeconds = 1.2f;
         [SerializeField] private float judgementTimeSeconds = 15f;
 
         [Header("Stage Transition")]
@@ -50,6 +53,11 @@ namespace Gamejam2026.Core
         private float storedTimeScale = 1f;
         private bool currentWavePenaltyApplied;
         private bool waitingForStageContinue;
+        private bool missionFailed;
+        private int stageKilledAiCount;
+        private int stageKilledHumanCount;
+        private int stageHumanCount;
+        private int totalClearPanelScore;
         private StageConfig CurrentStage => stages[currentStageIndex];
 
         protected override void Awake()
@@ -74,6 +82,11 @@ namespace Gamejam2026.Core
                 hudView.ClearPanelContinueRequested += HandleClearPanelContinueRequested;
                 hudView.RestartRequested += HandleRestartRequested;
             }
+
+            if (failStoryCutscenePlayer != null)
+            {
+                failStoryCutscenePlayer.RestartRequested += HandleFailStoryRestartRequested;
+            }
         }
 
         private void OnDisable()
@@ -95,6 +108,11 @@ namespace Gamejam2026.Core
                 hudView.ClearPanelContinueRequested -= HandleClearPanelContinueRequested;
                 hudView.RestartRequested -= HandleRestartRequested;
             }
+
+            if (failStoryCutscenePlayer != null)
+            {
+                failStoryCutscenePlayer.RestartRequested -= HandleFailStoryRestartRequested;
+            }
         }
 
         private void Start()
@@ -110,8 +128,10 @@ namespace Gamejam2026.Core
             }
 
             playerState.Reset();
+            totalClearPanelScore = 0;
             currentStageIndex = 0;
             waitingForStageContinue = false;
+            missionFailed = false;
             hudView?.HideGameOverPanel();
             StartStage();
         }
@@ -180,6 +200,11 @@ namespace Gamejam2026.Core
                 effectSpawner = FindFirstObjectByType<EffectSpawner>();
             }
 
+            if (failStoryCutscenePlayer == null)
+            {
+                failStoryCutscenePlayer = FindFirstObjectByType<FailStoryCutscenePlayer>(FindObjectsInactive.Include);
+            }
+
             if (sniperZoomInput == null)
             {
                 sniperZoomInput = FindFirstObjectByType<Gamejam2026.DebugTools.RightClickZoomDebugInput>();
@@ -234,6 +259,9 @@ namespace Gamejam2026.Core
         {
             state = GameState.StageIntro;
             currentWaveIndex = 0;
+            stageKilledAiCount = 0;
+            stageKilledHumanCount = 0;
+            stageHumanCount = 0;
             waitingForStageContinue = false;
             hudView?.SetStage(CurrentStage.stageName);
             hudView?.SetMistakes(playerState.Mistakes, CurrentStage.maxMistakes);
@@ -249,6 +277,7 @@ namespace Gamejam2026.Core
             hudView?.SetStatus("SCAN TARGETS");
             hudView?.HideClearPanel();
             hudView?.HideGameOverPanel();
+            hudView?.HideStagePanel();
             hudView?.SetGameplayHudVisible(false);
             SetPlayerVisible(false);
             wavePresenter.HideAllEntrants();
@@ -264,7 +293,16 @@ namespace Gamejam2026.Core
                 sniperZoomInput.ResetSniperVisualsToInitialPosition();
             }
 
+            if (currentWaveIndex == 1 && hudView != null)
+            {
+                yield return hudView.PlayStagePanel(
+                    currentStageIndex + 1,
+                    stagePanelFadeSeconds,
+                    stagePanelHoldSeconds);
+            }
+
             WaveData wave = entrantDatabase.BuildWave(CurrentStage, currentStageIndex + 1);
+            stageHumanCount += CountHumans(wave);
             wavePresenter.ShowWave(wave);
             Vector3 previewCenter = wavePresenter.GetCenter();
             wavePresenter.HideAllEntrants();
@@ -366,6 +404,7 @@ namespace Gamejam2026.Core
 
             if (correct)
             {
+                stageKilledAiCount++;
                 playerState.AddScore(100);
                 hudView?.SetStatus("AI DOWN");
                 effectSpawner?.PlayElectricHit(slot.transform.position);
@@ -377,6 +416,7 @@ namespace Gamejam2026.Core
             }
             else
             {
+                stageKilledHumanCount++;
                 playerState.AddMistake();
                 currentWavePenaltyApplied = true;
                 hudView?.SetStatus("HUMAN HIT");
@@ -442,7 +482,7 @@ namespace Gamejam2026.Core
             yield return new WaitForSeconds(resolveDelaySeconds);
 
             WaveResult result = waveResultEvaluator.Evaluate(wavePresenter);
-            bool success = result.IsSuccess;
+            bool success = result.RemainingAi == 0 && playerState.Mistakes < CurrentStage.maxMistakes;
 
             if (success)
             {
@@ -462,14 +502,14 @@ namespace Gamejam2026.Core
 
             if (playerState.Mistakes >= CurrentStage.maxMistakes)
             {
-                EnterGameOver();
+                ShowFailedResultPanel();
                 resolveRoutine = null;
                 yield break;
             }
 
             if (!success)
             {
-                EnterGameOver();
+                ShowFailedResultPanel();
                 resolveRoutine = null;
                 yield break;
             }
@@ -489,13 +529,15 @@ namespace Gamejam2026.Core
 
         private void AdvanceStage()
         {
+            int clearPanelScore = AddCurrentStageScoreToTotal();
+            string rank = CalculateRank(false);
             currentStageIndex++;
 
             if (currentStageIndex >= stages.Length)
             {
                 state = GameState.GameClear;
                 hudView?.SetStatus("MISSION COMPLETE");
-                hudView?.ShowClearPanel("MISSION COMPLETE");
+                hudView?.ShowClearPanel("MISSION COMPLETE", stageKilledAiCount, stageKilledHumanCount, clearPanelScore, rank, "Next");
                 hudView?.SetClearPanelInteractable(false);
                 return;
             }
@@ -507,12 +549,117 @@ namespace Gamejam2026.Core
             StopTimer();
             hudView?.SetGameplayHudVisible(false);
             hudView?.SetStatus("STAGE CLEAR");
-            hudView?.ShowClearPanel("CLEAR");
+            hudView?.ShowClearPanel("CLEAR", stageKilledAiCount, stageKilledHumanCount, clearPanelScore, rank, "Next");
             hudView?.SetClearPanelInteractable(true);
+        }
+
+        private void ShowFailedResultPanel()
+        {
+            state = GameState.GameOver;
+            waitingForStageContinue = false;
+            missionFailed = playerState.Mistakes >= CurrentStage.maxMistakes;
+            shootingController?.Stop();
+            StopTimer();
+            wavePresenter?.HideAllEntrants();
+            hudView?.SetGameplayHudVisible(false);
+            hudView?.SetStatus(missionFailed ? "MISSION FAILED" : "FAILED");
+
+            if (missionFailed && failStoryCutscenePlayer != null)
+            {
+                hudView?.HideClearPanel();
+                StartCoroutine(PlayMissionFailedCutsceneRoutine());
+                return;
+            }
+
+            hudView?.ShowClearPanel(
+                missionFailed ? "MISSION FAILED" : "FAILED",
+                stageKilledAiCount,
+                stageKilledHumanCount,
+                totalClearPanelScore,
+                CalculateRank(true),
+                missionFailed ? "End" : "Retry");
+            hudView?.SetClearPanelInteractable(true);
+        }
+
+        private IEnumerator PlayMissionFailedCutsceneRoutine()
+        {
+            SetPlayerVisible(false);
+            sniperZoomInput?.HideZoomVisualsForIntro();
+            failStoryCutscenePlayer?.HideImmediate();
+
+            if (failStoryCutscenePlayer != null)
+            {
+                yield return failStoryCutscenePlayer.Play();
+            }
+        }
+
+        private int AddCurrentStageScoreToTotal()
+        {
+            totalClearPanelScore += CalculateStageClearPanelScore();
+            return Mathf.Max(0, totalClearPanelScore);
+        }
+
+        private string CalculateRank(bool failed)
+        {
+            if (failed || stageKilledHumanCount >= 3)
+            {
+                return "C";
+            }
+
+            if (stageKilledHumanCount == 0)
+            {
+                return "S";
+            }
+
+            if (stageKilledHumanCount == 1)
+            {
+                return "A";
+            }
+
+            return "B";
+        }
+
+        private int CalculateStageClearPanelScore()
+        {
+            int currentRound = currentStageIndex + 1;
+            int survivingHumans = Mathf.Max(0, stageHumanCount - stageKilledHumanCount);
+            int score = currentRound * stageKilledAiCount * survivingHumans;
+            return Mathf.Max(0, score);
+        }
+
+        private static int CountHumans(WaveData wave)
+        {
+            if (wave == null)
+            {
+                return 0;
+            }
+
+            int count = 0;
+
+            for (int i = 0; i < wave.Entrants.Count; i++)
+            {
+                if (wave.Entrants[i] != null && wave.Entrants[i].type == EntrantType.Human)
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
 
         private void HandleClearPanelContinueRequested()
         {
+            if (state == GameState.GameOver && stageTransitionRoutine == null)
+            {
+                if (missionFailed)
+                {
+                    return;
+                }
+
+                stageTransitionRoutine = StartCoroutine(RestartStageRoutine());
+                return;
+            }
+
             if (!waitingForStageContinue || stageTransitionRoutine != null)
             {
                 return;
@@ -528,7 +675,22 @@ namespace Gamejam2026.Core
                 return;
             }
 
+            if (missionFailed)
+            {
+                return;
+            }
+
             stageTransitionRoutine = StartCoroutine(RestartStageRoutine());
+        }
+
+        private void HandleFailStoryRestartRequested()
+        {
+            if (stageTransitionRoutine != null)
+            {
+                return;
+            }
+
+            stageTransitionRoutine = StartCoroutine(RestartFromBeginningRoutine());
         }
 
         private IEnumerator StageTransitionRoutine()
@@ -549,8 +711,24 @@ namespace Gamejam2026.Core
             shootingController?.Stop();
             StopTimer();
             RestoreTimeScale();
-            playerState.Reset();
+            hudView?.SetMistakes(playerState.Mistakes, CurrentStage.maxMistakes);
             StartStage();
+            yield return FadeStageTransition(1f, 0f);
+            stageTransitionRoutine = null;
+        }
+
+        private IEnumerator RestartFromBeginningRoutine()
+        {
+            yield return FadeStageTransition(0f, 1f);
+            failStoryCutscenePlayer?.HideImmediate();
+            hudView?.HideClearPanel();
+            hudView?.HideGameOverPanel();
+            wavePresenter?.HideAllEntrants();
+            shootingController?.Stop();
+            StopTimer();
+            RestoreTimeScale();
+            sniperZoomInput?.ResetIntroPlayback();
+            StartGame();
             yield return FadeStageTransition(1f, 0f);
             stageTransitionRoutine = null;
         }
@@ -643,6 +821,7 @@ namespace Gamejam2026.Core
             if (wavePresenter != null && wavePresenter.TryGetFirstUnshotHuman(out EntrantSlot humanSlot))
             {
                 humanSlot.MarkShot();
+                stageKilledHumanCount++;
             }
 
             playerState.AddMistake();
@@ -654,12 +833,20 @@ namespace Gamejam2026.Core
         private void EnterGameOver()
         {
             state = GameState.GameOver;
+            missionFailed = playerState.Mistakes >= CurrentStage.maxMistakes;
             shootingController?.Stop();
             StopTimer();
             wavePresenter?.HideAllEntrants();
             hudView?.SetGameplayHudVisible(false);
-            hudView?.SetStatus("GAME OVER");
-            hudView?.ShowGameOverPanel("GAME OVER");
+            hudView?.SetStatus(missionFailed ? "MISSION FAILED" : "FAILED");
+            hudView?.ShowClearPanel(
+                missionFailed ? "MISSION FAILED" : "FAILED",
+                stageKilledAiCount,
+                stageKilledHumanCount,
+                totalClearPanelScore,
+                CalculateRank(true),
+                missionFailed ? "End" : "Retry");
+            hudView?.SetClearPanelInteractable(true);
         }
     }
 }

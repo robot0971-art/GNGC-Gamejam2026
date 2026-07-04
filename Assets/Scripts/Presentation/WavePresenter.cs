@@ -103,7 +103,7 @@ namespace Gamejam2026.Presentation
             yield return FadeSlot(slot, 0f, 1f, fadeSeconds);
             yield return new WaitForSeconds(holdSeconds);
             yield return FadeSlot(slot, 1f, 0f, fadeSeconds);
-
+//
             slot.gameObject.SetActive(false);
             RestoreSlotPosition(index);
             RestoreSlotScale(index);
