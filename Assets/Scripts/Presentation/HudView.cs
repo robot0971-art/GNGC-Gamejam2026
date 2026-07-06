@@ -45,6 +45,8 @@ namespace Gamejam2026.Presentation
         [SerializeField] private CanvasGroup stagePanelCanvasGroup;
         [SerializeField] private Image stageTitleImage;
         [SerializeField] private Sprite[] stageTitleSprites;
+        [SerializeField] private GameObject progressRedObject;
+        [SerializeField] private CanvasGroup progressRedCanvasGroup;
         [SerializeField] private Image[] progressPanelImages;
         [SerializeField] private Sprite[] progressPanelDefaultSprites;
         [SerializeField] private Sprite[] progressPanelSelectedSprites;
@@ -272,6 +274,7 @@ namespace Gamejam2026.Presentation
             }
 
             stagePanel.SetActive(true);
+            SetProgressRedVisible(true);
             stagePanelCanvasGroup.blocksRaycasts = true;
             stagePanelCanvasGroup.interactable = false;
 
@@ -303,6 +306,8 @@ namespace Gamejam2026.Presentation
             {
                 stagePanel.SetActive(false);
             }
+
+            SetProgressRedVisible(false);
         }
 
         public void SetClearPanelInteractable(bool interactable)
@@ -469,6 +474,26 @@ namespace Gamejam2026.Presentation
             if (stageTitleImage == null && stagePanel != null)
             {
                 stageTitleImage = FindImageChildByName(stagePanel.transform, "Stage Title", "StageTitle", "Progress Title", "ProgressTitle");
+            }
+
+            if (progressRedObject == null && stagePanel != null)
+            {
+                Transform found = FindChildByNames(stagePanel.transform, "Progress Red", "ProgressRed", "Progress Red Ring", "ProgressRedRing");
+
+                if (found != null)
+                {
+                    progressRedObject = found.gameObject;
+                }
+            }
+
+            if (progressRedObject == null)
+            {
+                progressRedObject = FindFirstSceneObjectByNames("Progress Red", "ProgressRed", "Progress Red Ring", "ProgressRedRing");
+            }
+
+            if (progressRedCanvasGroup == null && progressRedObject != null)
+            {
+                progressRedCanvasGroup = progressRedObject.GetComponent<CanvasGroup>();
             }
 
             ResolveStageTitleSprites();
@@ -654,6 +679,7 @@ namespace Gamejam2026.Presentation
             if (duration <= 0f)
             {
                 stagePanelCanvasGroup.alpha = to;
+                SetProgressRedAlpha(to);
                 yield break;
             }
 
@@ -663,11 +689,57 @@ namespace Gamejam2026.Presentation
             {
                 time += Time.unscaledDeltaTime;
                 float t = Mathf.Clamp01(time / duration);
-                stagePanelCanvasGroup.alpha = Mathf.Lerp(from, to, t);
+                float alpha = Mathf.Lerp(from, to, t);
+                stagePanelCanvasGroup.alpha = alpha;
+                SetProgressRedAlpha(alpha);
                 yield return null;
             }
 
             stagePanelCanvasGroup.alpha = to;
+            SetProgressRedAlpha(to);
+        }
+
+        private void SetProgressRedVisible(bool visible)
+        {
+            if (progressRedObject == null)
+            {
+                return;
+            }
+
+            progressRedObject.SetActive(visible);
+
+            if (progressRedCanvasGroup == null)
+            {
+                progressRedCanvasGroup = progressRedObject.GetComponent<CanvasGroup>();
+            }
+
+            if (progressRedCanvasGroup != null)
+            {
+                progressRedCanvasGroup.blocksRaycasts = false;
+                progressRedCanvasGroup.interactable = false;
+            }
+        }
+
+        private void SetProgressRedAlpha(float alpha)
+        {
+            if (progressRedObject == null)
+            {
+                return;
+            }
+
+            if (progressRedCanvasGroup == null)
+            {
+                progressRedCanvasGroup = progressRedObject.GetComponent<CanvasGroup>();
+            }
+
+            if (progressRedCanvasGroup == null)
+            {
+                progressRedCanvasGroup = progressRedObject.AddComponent<CanvasGroup>();
+                progressRedCanvasGroup.blocksRaycasts = false;
+                progressRedCanvasGroup.interactable = false;
+            }
+
+            progressRedCanvasGroup.alpha = alpha;
         }
 
         private void RegisterClearButton()
@@ -712,6 +784,11 @@ namespace Gamejam2026.Presentation
             }
 
             clearPanel.SetActive(true);
+            if (clearImageObject != null)
+            {
+                clearImageObject.transform.SetAsLastSibling();
+            }
+            clearPanel.transform.SetAsLastSibling();
             clearPanelCanvasGroup.alpha = 0f;
             clearPanelCanvasGroup.blocksRaycasts = false;
             clearPanelCanvasGroup.interactable = false;
@@ -972,6 +1049,38 @@ namespace Gamejam2026.Presentation
                     if (imageName == names[j])
                     {
                         return images[i];
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private static Transform FindChildByNames(Transform root, params string[] names)
+        {
+            if (root == null)
+            {
+                return null;
+            }
+
+            Transform[] children = root.GetComponentsInChildren<Transform>(true);
+
+            for (int i = 0; i < children.Length; i++)
+            {
+                Transform child = children[i];
+
+                if (child == null)
+                {
+                    continue;
+                }
+
+                string childName = child.name.Trim();
+
+                for (int j = 0; j < names.Length; j++)
+                {
+                    if (childName == names[j])
+                    {
+                        return child;
                     }
                 }
             }

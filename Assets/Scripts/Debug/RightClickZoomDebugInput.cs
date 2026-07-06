@@ -232,6 +232,27 @@ namespace Gamejam2026.DebugTools
             hasPlayedSniperScene = false;
         }
 
+        public void PrepareIntroBackdrop()
+        {
+            ResolveMissingReferences();
+            HideZoomVisualsForIntro();
+            SetSniperScenesActive(false);
+            SetStartCutsceneObjectsActive(false);
+            GameObject backdrop = GetOrCreateCutsceneBackdrop();
+
+            if (backdrop == null)
+            {
+                return;
+            }
+
+            SetBackdropVisible(backdrop, true, 1f);
+        }
+
+        public void HideCutsceneBackdropImmediate()
+        {
+            SetBackdropVisible(cutsceneBackdropObject, false, 0f);
+        }
+
         private void EnterZoomMode()
         {
             ResolveMissingReferences();
@@ -780,10 +801,13 @@ namespace Gamejam2026.DebugTools
             HideZoomVisualsForIntro();
             SetSniperScenesActive(false);
             SetStartCutsceneObjectsActive(false);
+            GameObject cutsceneBackdrop = GetOrCreateCutsceneBackdrop();
+            SetBackdropVisible(cutsceneBackdrop, true, 1f);
 
             if ((startCutsceneObjects == null || startCutsceneObjects.Length == 0)
                 && (sniperSceneObjects == null || sniperSceneObjects.Length == 0))
             {
+                SetBackdropVisible(cutsceneBackdrop, false, 0f);
                 yield break;
             }
 
@@ -794,8 +818,10 @@ namespace Gamejam2026.DebugTools
 
             if (sniperSceneObjects != null && sniperSceneObjects.Length > 0)
             {
-                yield return PlayIntroSceneSequence(sniperSceneObjects, GetOrCreateCutsceneBackdrop(), false);
+                yield return PlayIntroSceneSequence(sniperSceneObjects, cutsceneBackdrop, false);
             }
+
+            SetBackdropVisible(cutsceneBackdrop, false, 0f);
         }
 
         private IEnumerator PlayIntroSceneSequence(GameObject[] scenes, GameObject backdrop, bool keepBackdropOrder)
@@ -977,6 +1003,23 @@ namespace Gamejam2026.DebugTools
 
             cutsceneBackdropObject = backdrop;
             return cutsceneBackdropObject;
+        }
+
+        private void SetBackdropVisible(GameObject backdrop, bool visible, float alpha)
+        {
+            if (backdrop == null)
+            {
+                return;
+            }
+
+            backdrop.SetActive(visible);
+            backdrop.transform.SetAsFirstSibling();
+            CanvasGroup canvasGroup = GetOrAddCanvasGroup(backdrop);
+
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = alpha;
+            }
         }
 
         private IEnumerator FadeSceneAndBackdropOut(GameObject scene, GameObject backdrop, float duration)

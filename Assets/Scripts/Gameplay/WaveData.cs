@@ -14,7 +14,7 @@ namespace Gamejam2026.Gameplay
 
                 for (int i = 0; i < Entrants.Count; i++)
                 {
-                    if (Entrants[i].type == EntrantType.AI)
+                    if (Entrants[i] != null && Entrants[i].type == EntrantType.AI)
                     {
                         count++;
                     }

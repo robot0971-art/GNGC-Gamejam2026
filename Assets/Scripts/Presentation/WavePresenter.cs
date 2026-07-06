@@ -22,7 +22,7 @@ namespace Gamejam2026.Presentation
 
             for (int i = 0; i < slots.Length; i++)
             {
-                if (i < wave.Entrants.Count)
+                if (i < wave.Entrants.Count && wave.Entrants[i] != null)
                 {
                     slots[i].Setup(wave.Entrants[i]);
                 }
@@ -210,6 +210,25 @@ namespace Gamejam2026.Presentation
             }
 
             return activeCount > 0 ? total / activeCount : transform.position;
+        }
+
+        public Vector3 GetLayoutCenter()
+        {
+            ResolveSlots();
+
+            if (slots.Length == 0)
+            {
+                return transform.position;
+            }
+
+            Vector3 total = Vector3.zero;
+
+            for (int i = 0; i < slots.Length; i++)
+            {
+                total += slots[i].transform.position;
+            }
+
+            return total / slots.Length;
         }
 
         public bool TryGetVisibleSlotByHorizontalRatio(float ratio, out EntrantSlot slot)

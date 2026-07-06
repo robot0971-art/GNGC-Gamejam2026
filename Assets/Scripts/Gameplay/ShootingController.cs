@@ -17,15 +17,40 @@ namespace Gamejam2026.Gameplay
         [SerializeField] private Transform aimPoint;
         [SerializeField] private bool unlimitedBulletsForTesting;
         [SerializeField] private bool useFixedAiSlotsForTesting;
+        [SerializeField] private AudioClip gunShotClip;
+        [SerializeField, Range(0f, 1f)] private float gunShotVolume = 1f;
 
         private int bullets;
         private bool canShoot;
         private EntrantSlot overrideTarget;
         private bool blankNextHumanShot;
+        private AudioSource gunShotAudioSource;
 
         public int Bullets => bullets;
 
         public Transform AimPoint => aimPoint;
+
+        private void Awake()
+        {
+            gunShotAudioSource = GetComponent<AudioSource>();
+
+            if (gunShotAudioSource == null)
+            {
+                gunShotAudioSource = gameObject.AddComponent<AudioSource>();
+            }
+
+            ConfigureGunShotAudioSource();
+        }
+
+        private void OnValidate()
+        {
+            gunShotAudioSource = GetComponent<AudioSource>();
+
+            if (gunShotAudioSource != null)
+            {
+                ConfigureGunShotAudioSource();
+            }
+        }
 
         public void SetAimPoint(Transform newAimPoint)
         {
@@ -61,6 +86,11 @@ namespace Gamejam2026.Gameplay
         public void Stop()
         {
             canShoot = false;
+        }
+
+        public void PlayGunShotFeedback()
+        {
+            PlayGunShotSound();
         }
 
         private void Update()
@@ -163,6 +193,7 @@ namespace Gamejam2026.Gameplay
                 return;
             }
 
+            PlayGunShotSound();
             slot.MarkShot();
             ShotResolved?.Invoke(slot, correct, bullets);
 
@@ -181,6 +212,36 @@ namespace Gamejam2026.Gameplay
             }
 
             return slot.Data != null && slot.Data.type == EntrantType.AI;
+        }
+
+        private void PlayGunShotSound()
+        {
+            if (gunShotClip == null)
+            {
+                return;
+            }
+
+            if (gunShotAudioSource == null)
+            {
+                gunShotAudioSource = GetComponent<AudioSource>();
+
+                if (gunShotAudioSource == null)
+                {
+                    gunShotAudioSource = gameObject.AddComponent<AudioSource>();
+                }
+
+                ConfigureGunShotAudioSource();
+            }
+
+            gunShotAudioSource.PlayOneShot(gunShotClip, gunShotVolume);
+        }
+
+        private void ConfigureGunShotAudioSource()
+        {
+            gunShotAudioSource.playOnAwake = false;
+            gunShotAudioSource.loop = false;
+            gunShotAudioSource.spatialBlend = 0f;
+            gunShotAudioSource.volume = 1f;
         }
     }
 }

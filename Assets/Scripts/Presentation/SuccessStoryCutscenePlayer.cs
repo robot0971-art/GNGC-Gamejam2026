@@ -10,6 +10,9 @@ namespace Gamejam2026.Presentation
         [SerializeField] private float fadeSeconds = 0.525f;
         [SerializeField] private float holdSeconds = 3.75f;
         [SerializeField] private bool keepLastSceneVisible;
+        [SerializeField] private AudioClip endingMusicClip;
+        [SerializeField, Range(0f, 1f)] private float endingMusicVolume = 1f;
+        [SerializeField] private BgmPlayer bgmPlayer;
 
         private Coroutine playRoutine;
 
@@ -22,6 +25,7 @@ namespace Gamejam2026.Presentation
         public IEnumerator Play()
         {
             ResolveMissingReferences();
+            PlayEndingMusic();
 
             if (successStoryPanel != null)
             {
@@ -66,6 +70,8 @@ namespace Gamejam2026.Presentation
             {
                 successStoryPanel.SetActive(false);
             }
+
+            RestoreBgm();
         }
 
         private IEnumerator PlayRoutine()
@@ -133,6 +139,29 @@ namespace Gamejam2026.Presentation
                 {
                     storyScenes[i] = successStoryPanel.transform.GetChild(i).gameObject;
                 }
+            }
+
+            if (bgmPlayer == null)
+            {
+                bgmPlayer = FindFirstObjectByType<BgmPlayer>();
+            }
+        }
+
+        private void PlayEndingMusic()
+        {
+            if (bgmPlayer == null || endingMusicClip == null)
+            {
+                return;
+            }
+
+            bgmPlayer.PlayTemporaryLoop(endingMusicClip, endingMusicVolume);
+        }
+
+        private void RestoreBgm()
+        {
+            if (bgmPlayer != null)
+            {
+                bgmPlayer.RestoreMainLoop();
             }
         }
 

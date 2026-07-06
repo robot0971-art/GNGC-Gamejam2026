@@ -13,6 +13,9 @@ namespace Gamejam2026.Presentation
         [SerializeField] private float fadeSeconds = 0.525f;
         [SerializeField] private float holdSeconds = 3.75f;
         [SerializeField] private float buttonFadeSeconds = 0.28f;
+        [SerializeField] private AudioClip endingMusicClip;
+        [SerializeField, Range(0f, 1f)] private float endingMusicVolume = 1f;
+        [SerializeField] private BgmPlayer bgmPlayer;
 
         private Coroutine playRoutine;
 
@@ -37,9 +40,12 @@ namespace Gamejam2026.Presentation
         {
             ResolveMissingReferences();
             RegisterButton();
+            ResetStoryContent();
+            PlayEndingMusic();
 
             if (failStoryPanel != null)
             {
+                failStoryPanel.transform.SetAsLastSibling();
                 failStoryPanel.SetActive(true);
             }
             else
@@ -61,7 +67,18 @@ namespace Gamejam2026.Presentation
             }
 
             ResolveMissingReferences();
+            ResetStoryContent();
 
+            if (failStoryPanel != null)
+            {
+                failStoryPanel.SetActive(false);
+            }
+
+            RestoreBgm();
+        }
+
+        private void ResetStoryContent()
+        {
             if (storyScenes != null)
             {
                 for (int i = 0; i < storyScenes.Length; i++)
@@ -89,11 +106,6 @@ namespace Gamejam2026.Presentation
                 failedStoryButton.interactable = false;
                 failedStoryButton.gameObject.SetActive(false);
             }
-
-            if (failStoryPanel != null)
-            {
-                failStoryPanel.SetActive(false);
-            }
         }
 
         private IEnumerator PlayRoutine()
@@ -104,6 +116,7 @@ namespace Gamejam2026.Presentation
             }
 
             failStoryPanel.SetActive(true);
+            failStoryPanel.transform.SetAsLastSibling();
 
             if (failedStoryButton != null)
             {
@@ -118,6 +131,7 @@ namespace Gamejam2026.Presentation
                     continue;
                 }
 
+                StretchSceneToPanel(storyScenes[i]);
                 storyScenes[i].SetActive(true);
                 CanvasGroup sceneGroup = GetOrAddCanvasGroup(storyScenes[i]);
                 sceneGroup.alpha = 0f;
@@ -242,6 +256,28 @@ namespace Gamejam2026.Presentation
             return null;
         }
 
+        private static void StretchSceneToPanel(GameObject scene)
+        {
+            if (scene == null)
+            {
+                return;
+            }
+
+            RectTransform rect = scene.GetComponent<RectTransform>();
+
+            if (rect == null)
+            {
+                return;
+            }
+
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = Vector2.zero;
+            rect.sizeDelta = Vector2.zero;
+            rect.localScale = Vector3.one;
+        }
+
         private void ResolveMissingReferences()
         {
             if (failStoryPanel == null)
@@ -283,6 +319,29 @@ namespace Gamejam2026.Presentation
             if (failedStoryButtonGroup == null && failedStoryButton != null)
             {
                 failedStoryButtonGroup = GetOrAddCanvasGroup(failedStoryButton.gameObject);
+            }
+
+            if (bgmPlayer == null)
+            {
+                bgmPlayer = FindFirstObjectByType<BgmPlayer>();
+            }
+        }
+
+        private void PlayEndingMusic()
+        {
+            if (bgmPlayer == null || endingMusicClip == null)
+            {
+                return;
+            }
+
+            bgmPlayer.PlayTemporaryLoop(endingMusicClip, endingMusicVolume);
+        }
+
+        private void RestoreBgm()
+        {
+            if (bgmPlayer != null)
+            {
+                bgmPlayer.RestoreMainLoop();
             }
         }
 

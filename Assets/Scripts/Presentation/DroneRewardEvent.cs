@@ -5,6 +5,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace Gamejam2026.Presentation
 {
     public class DroneRewardEvent : MonoBehaviour
@@ -13,6 +17,12 @@ namespace Gamejam2026.Presentation
         [SerializeField] private RectTransform droneRoot;
         [SerializeField] private RectTransform droneTextRoot;
         [SerializeField] private Button droneButton;
+        [SerializeField] private Image droneImage;
+        [SerializeField] private Animator droneAnimator;
+        [SerializeField] private string droneAnimationStateName;
+        [SerializeField] private bool disableDroneAnimatorWhenStopped = true;
+        [SerializeField] private Sprite[] droneAnimationSprites;
+        [SerializeField] private float droneAnimationFrameSeconds = 0.08f;
         [SerializeField] private GameObject choicePanel;
         [SerializeField] private Button firstChoiceButton;
         [SerializeField] private Button secondChoiceButton;
@@ -31,6 +41,11 @@ namespace Gamejam2026.Presentation
         [SerializeField] private Sprite bonusChoiceSprite;
         [SerializeField] private Sprite heartSprite;
         [SerializeField] private Sprite theftSprite;
+        [SerializeField] private AudioClip droneMusicClip;
+        [SerializeField, Range(0f, 1f)] private float droneMusicVolume = 1f;
+        [SerializeField] private BgmPlayer bgmPlayer;
+        [SerializeField] private AudioClip getItemClip;
+        [SerializeField, Range(0f, 1f)] private float getItemVolume = 1f;
 
         private readonly RewardItemType[] allRewards =
         {
@@ -48,6 +63,15 @@ namespace Gamejam2026.Presentation
         private bool rewardSelected;
         private RewardItemType selectedReward;
         private Vector2 droneShownPosition;
+        private Coroutine droneAnimationRoutine;
+        private Sprite defaultDroneSprite;
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            ResolveDroneAnimationSpritesFromAssets();
+        }
+#endif
 
         public IEnumerator Play(System.Action<RewardItemType> onSelected)
         {
@@ -58,6 +82,7 @@ namespace Gamejam2026.Presentation
                 yield break;
             }
 
+            PlayDroneMusic();
             RegisterDroneButton();
             rewardSelected = false;
             droneClicked = false;
@@ -71,6 +96,7 @@ namespace Gamejam2026.Presentation
             SetChoicePanelVisible(false, 0f);
             SetPanelAlpha(0f);
             SetDroneVisualPosition(droneStartPosition, droneTextOffset);
+            StartDroneAnimation();
             droneButton.interactable = false;
 
             yield return Fade(panelCanvasGroup, 0f, 1f, fadeSeconds);
@@ -103,6 +129,8 @@ namespace Gamejam2026.Presentation
             yield return MoveDrone(droneRoot.anchoredPosition, droneStartPosition, droneMoveSeconds, droneTextOffset);
             yield return Fade(panelCanvasGroup, 1f, 0f, fadeSeconds);
 
+            StopDroneAnimation();
+            RestoreBgm();
             rewardPanel.SetActive(false);
         }
 
@@ -128,6 +156,8 @@ namespace Gamejam2026.Presentation
 
             SetChoicePanelVisible(false, 0f);
             SetPanelAlpha(0f);
+            StopDroneAnimation();
+            RestoreBgm();
 
             if (rewardPanel != null)
             {
@@ -164,6 +194,25 @@ namespace Gamejam2026.Presentation
                 droneButton = droneRoot.GetComponent<Button>();
             }
 
+            if (droneImage == null && droneRoot != null)
+            {
+                droneImage = droneRoot.GetComponent<Image>();
+            }
+
+            if (droneAnimator == null && droneRoot != null)
+            {
+                droneAnimator = droneRoot.GetComponent<Animator>();
+
+                if (droneAnimator == null)
+                {
+                    droneAnimator = droneRoot.GetComponentInChildren<Animator>(true);
+                }
+            }
+
+#if UNITY_EDITOR
+            ResolveDroneAnimationSpritesFromAssets();
+#endif
+
             if (choicePanel == null)
             {
                 choicePanel = FindFirstSceneObjectByNames("Reward Choice Panel", "RewardChoicePanel", "Item Choice Panel", "ItemChoicePanel");
@@ -185,7 +234,163 @@ namespace Gamejam2026.Presentation
                 GameObject buttonObject = FindFirstSceneObjectByNames("Item Button 2", "Item Button2", "ItemButton2", "Reward Button 2", "RewardButton2");
                 secondChoiceButton = buttonObject != null ? buttonObject.GetComponent<Button>() : null;
             }
+
+            if (bgmPlayer == null)
+            {
+                bgmPlayer = FindFirstObjectByType<BgmPlayer>();
+            }
         }
+
+        private void PlayDroneMusic()
+        {
+            if (bgmPlayer == null || droneMusicClip == null)
+            {
+                return;
+            }
+
+            bgmPlayer.PlayTemporaryLoop(droneMusicClip, droneMusicVolume);
+        }
+
+        private void RestoreBgm()
+        {
+            if (bgmPlayer != null)
+            {
+                bgmPlayer.RestoreMainLoop();
+            }
+        }
+
+        private void StartDroneAnimation()
+        {
+            StopDroneAnimation();
+
+            if (droneAnimator != null && droneAnimator.runtimeAnimatorController != null)
+            {
+                droneAnimator.enabled = true;
+                droneAnimator.Rebind();
+                droneAnimator.Update(0f);
+
+                if (!string.IsNullOrWhiteSpace(droneAnimationStateName))
+                {
+                    droneAnimator.Play(droneAnimationStateName, 0, 0f);
+                }
+
+                return;
+            }
+
+            if (droneImage == null || droneAnimationSprites == null || droneAnimationSprites.Length == 0)
+            {
+                return;
+            }
+
+            defaultDroneSprite = droneImage.sprite;
+            droneAnimationRoutine = StartCoroutine(PlayDroneAnimation());
+        }
+
+        private void StopDroneAnimation()
+        {
+            if (droneAnimationRoutine != null)
+            {
+                StopCoroutine(droneAnimationRoutine);
+                droneAnimationRoutine = null;
+            }
+
+            if (droneImage != null && defaultDroneSprite != null)
+            {
+                droneImage.sprite = defaultDroneSprite;
+            }
+
+            if (droneAnimator != null && disableDroneAnimatorWhenStopped)
+            {
+                droneAnimator.enabled = false;
+            }
+        }
+
+        private IEnumerator PlayDroneAnimation()
+        {
+            int index = 0;
+
+            while (true)
+            {
+                Sprite frame = GetDroneAnimationFrame(index);
+
+                if (frame != null)
+                {
+                    droneImage.sprite = frame;
+                }
+
+                index++;
+                yield return new WaitForSecondsRealtime(GetDroneAnimationFrameSeconds());
+            }
+        }
+
+        private float GetDroneAnimationFrameSeconds()
+        {
+            return Mathf.Max(0.01f, droneAnimationFrameSeconds);
+        }
+
+        private Sprite GetDroneAnimationFrame(int index)
+        {
+            if (droneAnimationSprites == null || droneAnimationSprites.Length == 0)
+            {
+                return null;
+            }
+
+            int safeIndex = Mathf.Abs(index) % droneAnimationSprites.Length;
+            return droneAnimationSprites[safeIndex];
+        }
+
+#if UNITY_EDITOR
+        private void ResolveDroneAnimationSpritesFromAssets()
+        {
+            const int frameCount = 5;
+            bool changed = false;
+
+            if (droneAnimationSprites == null || droneAnimationSprites.Length != frameCount)
+            {
+                droneAnimationSprites = new Sprite[frameCount];
+                changed = true;
+            }
+
+            for (int i = 0; i < frameCount; i++)
+            {
+                string path = $"Assets/Image/Drone Anim/dron_ani_{i + 1}.png";
+                Sprite sprite = LoadSpriteAssetAtPath(path);
+
+                if (droneAnimationSprites[i] != sprite)
+                {
+                    droneAnimationSprites[i] = sprite;
+                    changed = true;
+                }
+            }
+
+            if (changed && !Application.isPlaying)
+            {
+                EditorUtility.SetDirty(this);
+            }
+        }
+
+        private static Sprite LoadSpriteAssetAtPath(string path)
+        {
+            Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+
+            if (sprite != null)
+            {
+                return sprite;
+            }
+
+            Object[] assets = AssetDatabase.LoadAllAssetsAtPath(path);
+
+            for (int i = 0; i < assets.Length; i++)
+            {
+                if (assets[i] is Sprite childSprite)
+                {
+                    return childSprite;
+                }
+            }
+
+            return null;
+        }
+#endif
 
         private void RegisterDroneButton()
         {
@@ -408,6 +613,7 @@ namespace Gamejam2026.Presentation
 
         private void SelectReward(RewardItemType rewardType)
         {
+            PlayGetItemSound();
             selectedReward = rewardType;
             rewardSelected = true;
 
@@ -420,6 +626,16 @@ namespace Gamejam2026.Presentation
             {
                 secondChoiceButton.interactable = false;
             }
+        }
+
+        private void PlayGetItemSound()
+        {
+            if (getItemClip == null)
+            {
+                return;
+            }
+
+            AudioSource.PlayClipAtPoint(getItemClip, Vector3.zero, getItemVolume);
         }
 
         private void SetChoicePanelVisible(bool visible, float alpha)
